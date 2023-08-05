@@ -1,0 +1,26 @@
+{
+  "name": "email-templates",
+  "version": "1.0.0",
+  "description": "## Description",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run -w client dev\" \"npm run -w server start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajdinl/email-templates.git"
+  },
+  "author": "Ajdin Lojic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajdinl/email-templates/issues"
+  },
+  "homepage": "https://github.com/ajdinl/email-templates#readme",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

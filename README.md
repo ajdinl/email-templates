@@ -29,14 +29,14 @@ Replace your mongodb uri with the connection URI to your MongoDB database. You c
 Install dependencies:
 In your terminal or command prompt, navigate to the project's root directory (where the package.json is located) and run the following command to install the dependencies for both the client and server:
 
-yarn install
+npm install
 Run this command in root directory.
 This will install all the required packages specified in the package.json files for both the client and server.
 
 Start the application:
 After the installation is complete, run the following command to start the application:
 
-yarn start
+npm start
 This will start both the client and server applications concurrently.
 
 Access the application:
@@ -45,4 +45,4 @@ Once the application is running, open your web browser and visit the following U
 http://localhost:3000/
 You should now see the "The Email Templates Application" running locally on your machine.
 
-Please note that these instructions assume you have Node.js, Yarn, and Git installed on your system. If you don't have them installed, make sure to install them before proceeding with the instructions.
+Please note that these instructions assume you have Node.js, NPM, and Git installed on your system. If you don't have them installed, make sure to install them before proceeding with the instructions.
