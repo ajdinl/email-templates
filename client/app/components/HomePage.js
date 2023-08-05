@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function HomePage() {
+export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [userFirstLetter, setUserFirstLetter] = useState('')
   const [editModalVisible, setEditModalVisible] = useState(false)
@@ -91,9 +91,85 @@ export default function HomePage() {
               + New Template
             </Link>
           </div>
-          <table className='application__content__list'>
-            {/* Table header and body */}
-          </table>
+          {templates.length === 0 && 'No templates found'}
+          {templates.length > 0 && (
+            <table className='application__content__list'>
+              <thead className='application__content__list__header'>
+                <tr className='application__content__list__header__row'>
+                  <th className='application__content__list__header__cell'>
+                    <div className='application__content__list__header__cell__items'>
+                      <div className='application__content__list__header__cell__items__title'>
+                        Name
+                      </div>
+                      <div>
+                        {/* <div
+                  className="application__content__list__header__cell__items__arrowup"
+                  {{on "click" (fn this.sortTemplatesBy "name-desc")}}
+                ></div>
+                <div
+                  className="application__content__list__header__cell__items__arrowdown"
+                  {{on "click" (fn this.sortTemplatesBy "name-asc")}}
+                ></div> */}
+                      </div>
+                    </div>
+                  </th>
+                  <th className='application__content__list__header__cell'>
+                    <div className='application__content__list__header__cell__items'>
+                      <div className='application__content__list__header__cell__items__title'>
+                        Last Modified By
+                      </div>
+                      <div>
+                        {/* <div
+                  className="application__content__list__header__cell__items__arrowup"
+                  {{on "click" (fn this.sortTemplatesBy "user-desc")}}
+                ></div><div
+                  className="application__content__list__header__cell__items__arrowdown"
+                  {{on "click" (fn this.sortTemplatesBy "user-asc")}}
+                ></div> */}
+                      </div>
+                    </div>
+                  </th>
+                  <th className='application__content__list__header__cell'>
+                    <div className='application__content__list__header__cell__items'>
+                      <div className='application__content__list__header__cell__items__title'>
+                        Last Modified On
+                      </div>
+                      <div>
+                        {/* <div
+                  className="application__content__list__header__cell__items__arrowup"
+                  {{on "click" (fn this.sortTemplatesBy "date-desc")}}
+                ></div><div
+                  className="application__content__list__header__cell__items__arrowdown"
+                  {{on "click" (fn this.sortTemplatesBy "date-asc")}}
+                ></div> */}
+                      </div>
+                    </div>
+                  </th>
+                  <th className='application__content__list__header__cell'></th>
+                </tr>
+              </thead>
+              <tbody className='application__content__list__items'>
+                {templates.map((template) => {
+                  return (
+                    <tr
+                      className='application__content__list__items__row'
+                      key={template._id}
+                    >
+                      <td className='application__content__list__items__cell name'>
+                        {template.name}
+                      </td>
+                      <td className='application__content__list__items__cell'>
+                        {template.user}
+                      </td>
+                      <td className='application__content__list__items__cell'>
+                        {template.updatedAt}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
         {/* Modals */}
         {editModalVisible && (

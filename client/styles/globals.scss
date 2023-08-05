@@ -83,35 +83,35 @@ $warning-color: #ff0000;
     flex-grow: 1;
 
     &__logo {
-      background: url('/aseets/images/logo.png') no-repeat;
+      background: url('/logo.png') no-repeat;
       background-size: contain;
       width: 100px;
       height: 100px;
     }
 
     &__icon1 {
-      background: url('/aseets/images/user.png') no-repeat;
+      background: url('/user.png') no-repeat;
       background-size: contain;
       width: 30px;
       height: 30px;
     }
 
     &__icon2 {
-      background: url('/aseets/images/message.png') no-repeat;
+      background: url('/message.png') no-repeat;
       background-size: contain;
       width: 30px;
       height: 30px;
     }
 
     &__icon3 {
-      background: url('/aseets/images/templates.png') no-repeat;
+      background: url('/templates.png') no-repeat;
       background-size: contain;
       width: 30px;
       height: 30px;
     }
 
     &__icon4 {
-      background: url('/aseets/images/exit.png') no-repeat;
+      background: url('/exit.png') no-repeat;
       background-size: contain;
       width: 30px;
       height: 30px;
@@ -168,7 +168,7 @@ $warning-color: #ff0000;
       left: 25px;
       width: 18px;
       height: 18px;
-      background: url('/aseets/images/search.png') no-repeat;
+      background: url('/search.png') no-repeat;
       background-size: contain;
     }
   }

@@ -4,7 +4,7 @@ const Template = require('../models/templateModel')
 const User = require('../models/userModel')
 
 const getEmailTemplates = asyncHandler(async (req, res) => {
-  const templates = await Template.find({ user: req.user.id })
+  const templates = await Template.find(/*{ user: req.user.id }*/)
   res.status(200).json(templates)
 })
 
