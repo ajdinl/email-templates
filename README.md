@@ -46,5 +46,3 @@ http://localhost:3000/
 You should now see the "The Email Templates Application" running locally on your machine.
 
 Please note that these instructions assume you have Node.js, NPM, and Git installed on your system. If you don't have them installed, make sure to install them before proceeding with the instructions.
-
-Test
