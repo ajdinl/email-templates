@@ -1,0 +1,1338 @@
+$sidebar-background-color: rgba(0, 0, 0, 255);
+$sidebar-icons-color: rgba(128, 128, 128, 255);
+
+$app-header-background-color: rgba(255, 255, 255, 255);
+$app-header-search-border: #808080;
+$user-icon-background-color: rgba(15, 153, 255, 255);
+$user-icon-color: #fff;
+$user-menu-background-color: #fff;
+$user-menu-item-color: #808080;
+
+$application-link-color: rgba(245, 64, 185, 255);
+$application-link-border: rgba(245, 64, 185, 255);
+$application-background-color: rgba(246, 252, 254, 255);
+$app-item-content-background: #fff;
+$app-item-content-background-last-child: #ff0000;
+$actions-button-color: rgba(15, 153, 255, 255);
+
+$table-background-color: rgba(255, 255, 255, 255);
+$table-cells-border-color: rgba(237, 237, 236, 255);
+
+$delete-button-color: rgba(235, 64, 41, 255);
+$link-color: rgba(15, 153, 255, 255);
+
+$button-color: rgba(245, 64, 185, 255);
+
+$modal-button-color: rgba(245, 64, 185, 255);
+$modal-border-color: rgba(245, 64, 185, 255);
+$modal-title-color: #000000;
+$modal-close-button-color: #000000;
+$modal-button-background-color: #fff;
+$modal-button-border-color: #808080;
+$modal-button-disabled-color: #808080;
+
+$preview-link-color: #4f9bec;
+$form-border-color: #abb2b9;
+$warning-button-background-color: #ff0000;
+$warning-button-color: #fff;
+$warning-border-color: rgba(245, 64, 185, 255);
+
+$dropdown-item-color: rgba(15, 153, 255, 255);
+$dropdown-button-color: rgba(15, 153, 255, 0.3);
+
+$login-button-background-color: #4f9bec;
+$create-user-button-background-color: #009800;
+$login-button-color: #fff;
+$login-button-color-hover: #0066cc;
+$create-user-button-hover-color: green;
+$login-app-border-color: #ccc;
+$login-border-color: #ccc;
+$login-border-color-focus: #4f9bec;
+$warning-color: #ff0000;
+
+.application {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Comfortaa', cursive;
+  font-family: 'Inter', sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+.app-sidebar {
+  width: 160px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $sidebar-background-color;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &__upper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+
+    &__logo {
+      background: url('/aseets/images/logo.png') no-repeat;
+      background-size: contain;
+      width: 100px;
+      height: 100px;
+    }
+
+    &__icon1 {
+      background: url('/aseets/images/user.png') no-repeat;
+      background-size: contain;
+      width: 30px;
+      height: 30px;
+    }
+
+    &__icon2 {
+      background: url('/aseets/images/message.png') no-repeat;
+      background-size: contain;
+      width: 30px;
+      height: 30px;
+    }
+
+    &__icon3 {
+      background: url('/aseets/images/templates.png') no-repeat;
+      background-size: contain;
+      width: 30px;
+      height: 30px;
+    }
+
+    &__icon4 {
+      background: url('/aseets/images/exit.png') no-repeat;
+      background-size: contain;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__lower {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    li {
+      margin-bottom: 20px;
+
+      a {
+        color: $sidebar-icons-color;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.app-header {
+  background-color: $app-header-background-color;
+  position: fixed;
+  top: 0;
+  left: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  width: calc(100% - 200px);
+  height: 80px;
+  z-index: 1;
+
+  &__search {
+    margin-left: 20px;
+    padding: 15px 15px 15px 40px;
+    border: 1px solid $app-header-search-border;
+    border-radius: 3px;
+    outline: none;
+    width: 40%;
+
+    &__icon {
+      position: absolute;
+      top: 20px;
+      left: 25px;
+      width: 18px;
+      height: 18px;
+      background: url('/aseets/images/search.png') no-repeat;
+      background-size: contain;
+    }
+  }
+
+  &__user {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $user-icon-background-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $user-icon-color;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+
+    &__user-menu {
+      background-color: $user-menu-background-color;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      padding: 0;
+      margin: 0 15px 0 0;
+      width: 200px;
+
+      &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &__item {
+          padding: 10px 15px;
+          cursor: pointer;
+          color: $dropdown-item-color;
+          font-family: 'Libre Franklin';
+          font-weight: 400;
+          font-size: 14px;
+
+          &:last-child {
+            color: $user-menu-item-color;
+          }
+
+          &:hover {
+            background-color: $dropdown-button-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.application__content {
+  position: absolute;
+  top: 0;
+  left: 150px;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $application-background-color;
+  padding: 120px 40px 0 40px;
+  height: fit-content;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+
+    &__title {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    &__link {
+      color: $application-link-color;
+      text-decoration: none;
+      border: 1px solid $application-link-border;
+      border-radius: 3px;
+      padding: 15px 60px;
+      background-color: transparent;
+    }
+  }
+
+  &__list {
+    width: 100%;
+    background-color: $table-background-color;
+    border-spacing: 0;
+
+    &__header {
+      &__cell {
+        padding: 15px 30px;
+        border-bottom: 1px solid $table-cells-border-color;
+        text-align: left;
+        font-weight: bold;
+
+        &__items {
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          left: 0;
+
+          &__title {
+            margin-right: 5px;
+          }
+
+          &__arrowup {
+            width: 8px;
+            height: 8px;
+            background: url('/aseets/images/arrow.svg') no-repeat;
+            background-size: contain;
+          }
+
+          &__arrowdown {
+            width: 8px;
+            height: 8px;
+            background: url('/aseets/images/arrow.svg') no-repeat;
+            background-size: contain;
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    &__items {
+      &__cell {
+        border-bottom: 1px solid $table-cells-border-color;
+
+        &.name {
+          color: $preview-link-color;
+        }
+
+        &:nth-child(4) {
+          width: 80px;
+          background-color: white;
+          color: $actions-button-color;
+
+          :hover {
+            background-color: $actions-button-color;
+            color: white;
+          }
+        }
+
+        &__button {
+          display: flex;
+          align-items: center;
+          justify-content: right;
+          border: 1px solid $actions-button-color;
+          border-radius: 5px;
+          padding: 5px 10px 5px 20px;
+          cursor: pointer;
+          width: 80px;
+          height: 30px;
+
+          &__text {
+            margin-right: 5px;
+            border-right: 1px solid $actions-button-color;
+            padding: 11px;
+          }
+
+          > span {
+            margin-left: 5px;
+            transform: rotate(90deg);
+          }
+        }
+
+        &__content {
+          background-color: $app-item-content-background;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          border-radius: 4px;
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+          padding: 0;
+          margin: 0 15px 0 0;
+          width: 200px;
+
+          &__list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            &__item {
+              padding: 10px 15px;
+              cursor: pointer;
+              color: $dropdown-item-color;
+              font-family: 'Libre Franklin';
+              font-weight: 400;
+              font-size: 14px;
+
+              &:last-child {
+                color: $app-item-content-background-last-child;
+              }
+
+              &:hover {
+                background-color: $dropdown-button-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.app-modal-overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.app-modal-wrapper {
+  position: relative;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  padding: 1rem 1rem !important;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  overflow-y: auto;
+  height: 100%;
+  width: 90%;
+
+  &.edit-modal {
+    width: 46rem;
+    left: calc(50% - 24rem) !important;
+  }
+
+  &.delete-modal {
+    width: 20rem;
+    height: 25rem;
+    align-items: center;
+    text-align: center;
+    top: 30% !important;
+  }
+
+  &.preview-modal {
+    width: 30rem;
+    height: 35rem;
+    align-items: start;
+    text-align: center;
+    top: 30% !important;
+  }
+}
+
+.app-modal-wrapper--dialog {
+  padding: 1rem 1rem !important;
+}
+
+.app-modal-content {
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
+
+  &__upper {
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    &__title {
+      margin-bottom: 20px;
+    }
+    &__image {
+      background: url('/aseets/images/clavagolf.png') no-repeat;
+      background-size: contain;
+      width: 400px;
+      height: 100px;
+      padding: 20px 30px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &.for-preview-modal {
+      padding: 15px;
+    }
+
+    &__title {
+      color: $modal-title-color;
+      font-size: 22px;
+      font-family: 'Libre Franklin';
+      font-weight: 500;
+
+      &.for-preview-modal {
+        text-align: left;
+        width: 80%;
+        margin: 0;
+        font-size: 22px;
+      }
+    }
+
+    &__close {
+      text-decoration: none;
+      color: $modal-close-button-color;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Libre Franklin';
+
+      &.for-delete-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      &.for-preview-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-family: 'Libre Franklin';
+    font-size: 14px;
+
+    &__form {
+      width: 100%;
+    }
+
+    &__item {
+      margin-bottom: 10px;
+      width: 100%;
+
+      label {
+        font-weight: bold;
+        font-family: 'Libre Franklin';
+        font-size: 13px;
+      }
+
+      input[type='text'],
+      textarea {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid $form-border-color;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-top: 4px;
+
+        &.error {
+          box-shadow: 0 0 1.25pt 0.5pt $warning-color;
+        }
+      }
+
+      textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.125rem $preview-link-color;
+      }
+      input:focus {
+        outline: none;
+        border: 1px solid $preview-link-color;
+      }
+
+      #template-body {
+        height: 200px;
+      }
+
+      &__error {
+        color: $warning-color;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    }
+
+    &__buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      align-items: center;
+
+      &__button {
+        width: 40%;
+        padding: 15px;
+        background-color: $modal-button-background-color;
+        color: $modal-button-color;
+        border: 1px solid $modal-border-color;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+
+        &.disabled {
+          border: 1px solid $modal-button-border-color;
+          color: $modal-button-disabled-color;
+        }
+
+        &.for-edit-modal {
+          width: 100%;
+        }
+      }
+
+      &__preview-link {
+        color: $preview-link-color;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      &__warning-button {
+        width: 95%;
+        padding: 15px;
+        background-color: $warning-button-background-color;
+        color: $warning-button-color;
+        border: 1px solid $button-color;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 16px;
+      }
+    }
+
+    &__text {
+      text-align: left;
+      margin: 0;
+      padding: 0 15px;
+      font-size: 12px;
+    }
+  }
+}
+
+.app-login {
+  margin: 0 auto;
+  margin-top: 100px;
+  text-align: center;
+  max-width: 250px;
+  padding: 20px;
+  border: 1px solid $login-app-border-color;
+  border-radius: 5px;
+
+  font-family: 'Libre Franklin';
+
+  &__title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    label {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    &__form-control {
+      padding: 8px 12px;
+      font-size: 16px;
+      border: 1px solid $login-border-color;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $login-border-color-focus;
+      }
+    }
+  }
+
+  &__btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: $login-button-background-color;
+    color: $login-button-color;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+
+    &:hover {
+      background-color: $login-button-color-hover;
+    }
+  }
+
+  &__btn-secondary {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: $create-user-button-background-color;
+    color: $login-button-color;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $create-user-button-hover-color;
+    }
+  }
+
+  &__error {
+    color: $warning-color;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+
+/* Responsive design */
+
+$mobile: 576px;
+$tablet: 768px;
+$smallLaptop: 992px;
+$largeLaptop: 1400px;
+
+@media (max-width: $mobile) {
+  .app-sidebar {
+    width: 50px;
+    z-index: 10;
+
+    &__upper {
+      &__logo {
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+      }
+      &__icon1,
+      &__icon2,
+      &__icon3,
+      &__icon4 {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .app-header {
+    left: 50px;
+    width: calc(100% - 90px);
+    height: 50px;
+
+    &__search {
+      margin-left: 0;
+      padding: 5px 10px;
+
+      &__icon {
+        display: none;
+      }
+    }
+
+    &__user {
+      width: 30px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+
+  .app-modal-wrapper {
+    &.edit-modal {
+      width: 16rem;
+      left: calc(50% - 9rem) !important;
+    }
+
+    &.delete-modal {
+      width: 15rem;
+      height: 22rem;
+    }
+
+    &.preview-modal {
+      width: 18rem;
+      height: 22rem;
+    }
+  }
+
+  .app-modal-content {
+    &__upper {
+      &__image {
+        width: 200px;
+        height: 50px;
+      }
+    }
+    &__header {
+      &.for-preview-modal {
+        padding: 10px;
+      }
+
+      &__title {
+        font-size: 16px;
+
+        &.for-preview-modal {
+          font-size: 16px;
+        }
+      }
+
+      &__close {
+        font-size: 14px;
+      }
+    }
+
+    &__body {
+      font-size: 12px;
+
+      &__buttons {
+        &__button {
+          width: 60%;
+          font-size: 12px;
+          padding: 10px;
+        }
+
+        &__warning-button {
+          font-size: 14px;
+        }
+
+        &__preview-link {
+          font-size: 14px;
+        }
+      }
+
+      &__text {
+        padding: 0 10px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .application__content {
+    left: 40px;
+    padding: 80px 0 0 0;
+    width: calc(100% - 35px);
+    height: 100vh;
+
+    &__header {
+      &__title {
+        padding-left: 14px;
+        font-size: 15px;
+      }
+
+      &__link {
+        font-size: 10px;
+        margin-right: 15px;
+        padding: 5px 20px;
+        white-space: nowrap;
+      }
+    }
+    &__list {
+      &__header {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 8px;
+        }
+      }
+      &__items {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 8px;
+
+          &:nth-child(4) {
+            width: 40px;
+          }
+
+          &__button {
+            padding: 0px 5px;
+            font-size: 8px;
+            width: 50px;
+            height: 20px;
+
+            > span {
+              margin-left: 0px;
+            }
+
+            &__text {
+              padding: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $mobile) and (max-width: $tablet) {
+  .app-sidebar {
+    width: 80px;
+
+    z-index: 10;
+
+    &__upper {
+      &__logo {
+        width: 45px;
+        height: 45px;
+        margin-top: 10px;
+      }
+      &__icon1,
+      &__icon2,
+      &__icon3,
+      &__icon4 {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+
+  .app-header {
+    left: 80px;
+    width: calc(100% - 120px);
+    height: 50px;
+
+    &__search {
+      margin-left: 0;
+      padding: 5px 10px;
+    }
+
+    &__user {
+      width: 30px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+
+  .app-modal-wrapper {
+    &.edit-modal {
+      width: 26rem;
+      left: calc(50% - 14rem) !important;
+    }
+
+    &.delete-modal {
+      width: 15rem;
+      height: 20rem;
+    }
+  }
+
+  .app-modal-wrapper {
+    &.delete-modal {
+      width: 15rem;
+      height: 22rem;
+    }
+
+    &.preview-modal {
+      width: 18rem;
+      height: 22rem;
+    }
+  }
+
+  .app-modal-content {
+    &__upper {
+      &__image {
+        width: 200px;
+        height: 50px;
+      }
+    }
+    &__header {
+      &.for-preview-modal {
+        padding: 10px;
+      }
+
+      &__title {
+        font-size: 16px;
+
+        &.for-preview-modal {
+          font-size: 16px;
+        }
+      }
+
+      &__close {
+        font-size: 14px;
+      }
+    }
+
+    &__body {
+      font-size: 12px;
+
+      &__buttons {
+        &__button {
+          width: 55%;
+          font-size: 14px;
+          padding: 12px;
+        }
+        &__warning-button {
+          font-size: 14px;
+        }
+
+        &__preview-link {
+          font-size: 14px;
+        }
+      }
+
+      &__text {
+        padding: 0 10px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .application__content {
+    left: 70px;
+    padding: 80px 0 0 0;
+    width: calc(100% - 65px);
+    height: 100vh;
+
+    &__header {
+      &__title {
+        padding-left: 14px;
+        font-size: 18px;
+      }
+
+      &__link {
+        font-size: 12px;
+        margin-right: 15px;
+        padding: 5px 20px;
+        white-space: nowrap;
+      }
+    }
+    &__list {
+      &__header {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+        }
+      }
+      &__items {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+
+          &:nth-child(4) {
+            width: 40px;
+          }
+
+          &__button {
+            padding: 0px 5px;
+            font-size: 10px;
+            width: 50px;
+            height: 20px;
+
+            > span {
+              margin-left: 0px;
+            }
+
+            &__text {
+              padding: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $tablet) and (max-width: $smallLaptop) {
+  .app-sidebar {
+    width: 80px;
+
+    z-index: 10;
+
+    &__upper {
+      &__logo {
+        width: 45px;
+        height: 45px;
+        margin-top: 10px;
+      }
+      &__icon1,
+      &__icon2,
+      &__icon3,
+      &__icon4 {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+
+  .app-header {
+    left: 80px;
+    width: calc(100% - 120px);
+    height: 50px;
+
+    &__search {
+      margin-left: 0;
+      padding: 5px 10px 5px 30px;
+
+      &__icon {
+        top: 17px;
+        left: 27px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &__user {
+      width: 30px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+
+  .app-modal-wrapper {
+    &.edit-modal {
+      width: 30rem;
+      left: calc(50% - 16rem) !important;
+    }
+  }
+
+  .application__content {
+    left: 70px;
+    padding: 80px 20px 0 20px;
+    width: calc(100% - 105px);
+    height: 100vh;
+
+    &__header {
+      &__title {
+        padding-left: 10px;
+        font-size: 18px;
+      }
+
+      &__link {
+        font-size: 12px;
+        margin-right: 0;
+        padding: 8px 30px;
+        white-space: nowrap;
+      }
+    }
+    &__list {
+      &__header {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+        }
+      }
+      &__items {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+
+          &:nth-child(4) {
+            width: 40px;
+          }
+
+          &__button {
+            padding: 0px 5px;
+            font-size: 10px;
+            width: 50px;
+            height: 20px;
+
+            > span {
+              margin-left: 0px;
+            }
+
+            &__text {
+              padding: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $smallLaptop) {
+  .app-sidebar {
+    width: 100px;
+
+    z-index: 10;
+
+    &__upper {
+      &__logo {
+        width: 45px;
+        height: 45px;
+        margin-top: 10px;
+      }
+      &__icon1,
+      &__icon2,
+      &__icon3,
+      &__icon4 {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+
+  .app-header {
+    left: 100px;
+    width: calc(100% - 140px);
+    height: 50px;
+
+    &__search {
+      margin-left: 0;
+      padding: 5px 10px 5px 30px;
+
+      &__icon {
+        top: 17px;
+        left: 27px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    &__user {
+      width: 30px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+
+  .app-modal-wrapper {
+    &.edit-modal {
+      width: 33rem;
+      left: calc(50% - 17rem) !important;
+    }
+  }
+
+  .application__content {
+    left: 90px;
+    padding: 80px 20px 0 20px;
+    width: calc(100% - 125px);
+    height: 100vh;
+
+    &__header {
+      &__title {
+        padding-left: 10px;
+        font-size: 18px;
+      }
+
+      &__link {
+        font-size: 12px;
+        margin-right: 0;
+        padding: 8px 30px;
+        white-space: nowrap;
+      }
+    }
+    &__list {
+      &__header {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+        }
+      }
+      &__items {
+        &__cell {
+          padding: 8px 12px;
+          font-size: 10px;
+
+          &:nth-child(4) {
+            width: 40px;
+          }
+
+          &__button {
+            padding: 0px 5px;
+            font-size: 10px;
+            width: 50px;
+            height: 20px;
+
+            > span {
+              margin-left: 0px;
+            }
+
+            &__text {
+              padding: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $largeLaptop) {
+  .app-sidebar {
+    width: 160px;
+
+    z-index: 10;
+
+    &__upper {
+      &__logo {
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+      }
+      &__icon1,
+      &__icon2,
+      &__icon3,
+      &__icon4 {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .app-header {
+    left: 160px;
+    width: calc(100% - 200px);
+    height: 80px;
+
+    &__search {
+      margin-left: 20px;
+      padding: 15px 15px 15px 40px;
+
+      &__icon {
+        top: 28px;
+        left: 50px;
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    &__user {
+      width: 50px;
+      height: 50px;
+      font-size: 14px;
+    }
+  }
+  .application__content {
+    left: 150px;
+    padding: 120px 40px 0 40px;
+    width: calc(100% - 225px);
+    height: 100vh;
+
+    &__header {
+      &__title {
+        padding-left: 25px;
+        font-size: 28px;
+      }
+
+      &__link {
+        font-size: 18px;
+        margin-right: 0;
+        padding: 15px 60px;
+        white-space: nowrap;
+      }
+    }
+    &__list {
+      &__header {
+        &__cell {
+          padding: 15px 30px;
+          font-size: 15px;
+        }
+      }
+      &__items {
+        &__cell {
+          padding: 15px 30px;
+          font-size: 15px;
+
+          &:nth-child(4) {
+            width: 80px;
+          }
+
+          &__button {
+            padding: 5px 10px 5px 20px;
+            font-size: 15px;
+            width: 80px;
+            height: 30px;
+
+            > span {
+              margin-left: 5px;
+            }
+
+            &__text {
+              padding: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
