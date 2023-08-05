@@ -1,9 +1,16 @@
 import HomePage from '@/app/components/HomePage'
 
-export default function Home() {
+async function getTemplates() {
+  const res = await fetch(process.env.API_URL)
+  return res.json()
+}
+
+export default async function Home() {
+  const templates = await getTemplates()
+
   return (
     <>
-      <HomePage />
+      <HomePage templates={templates} />
     </>
   )
 }

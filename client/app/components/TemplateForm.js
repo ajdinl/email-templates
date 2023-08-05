@@ -23,20 +23,28 @@ export default function TemplateForm() {
     setPreviewModalVisible(!previewModalVisible)
   }
   return (
-    <div>
-      <h1>Create a New Email Template</h1>
-      {!previewModalVisible && (
-        <form onSubmit={saveTemplate}>
-          <div>
+    <div className='app-modal-content'>
+      <div className='app-modal-content__header'>
+        <h1 className='app-modal-content__header__title'>
+          Create a New Email Template
+        </h1>
+        <Link href='/' className='app-modal-content__header__close'>
+          X
+        </Link>
+      </div>
+
+      <div className='app-modal-content__body'>
+        <form className='app-modal-content__body__form' onSubmit={saveTemplate}>
+          <div className='app-modal-content__body__item'>
             <label htmlFor='template-name'>Name</label>
             <input
               type='text'
-              value={templateName}
+              // value={template.name}
               id='template-name'
               required
               className={templateNameError ? 'error' : ''}
               onBlur={validateTemplateName}
-              onChange={(e) => setTemplateName(e.target.value)}
+              onChange={(e) => {} /* Handle change */}
             />
             {templateNameError && (
               <div className='app-modal-content__body__item__error'>
@@ -44,30 +52,30 @@ export default function TemplateForm() {
               </div>
             )}
           </div>
-          <div>
+          <div className='app-modal-content__body__item'>
             <label htmlFor='template-subject'>Subject Line</label>
             <input
               type='text'
-              value={templateSubject}
+              // value={template.subject}
               id='template-subject'
               required
-              onChange={(e) => setTemplateSubject(e.target.value)}
+              onChange={(e) => {} /* Handle change */}
             />
           </div>
-          <div>
+          <div className='app-modal-content__body__item'>
             <label htmlFor='template-body'>Message</label>
             <textarea
-              value={templateBody}
+              // value={template.body}
               id='template-body'
               required
-              onChange={(e) => setTemplateBody(e.target.value)}
+              onChange={(e) => {} /* Handle change */}
             />
           </div>
-          <div>
+          <div className='app-modal-content__body__buttons'>
             <button
               type='submit'
               className={`app-modal-content__body__buttons__button ${
-                (templateNameError || !templateSubject || !templateBody) &&
+                // (templateNameError || !template.subject || !template.body) &&
                 'disabled'
               }`}
             >
@@ -81,25 +89,7 @@ export default function TemplateForm() {
             </a>
           </div>
         </form>
-      )}
-      {previewModalVisible && (
-        <div className='app-modal-overlay'>
-          {/* Preview Modal */}
-          <div>
-            <div>You are previewing "{templateName}"</div>
-            <div> {/* Preview image */}</div>
-          </div>
-          <div>
-            <div>X</div>
-            <h3>{templateSubject}</h3>
-          </div>
-          <div>
-            <p>{templateBody}</p>
-          </div>
-          <button onClick={togglePreviewModal}>Close</button>
-        </div>
-      )}
-      {!previewModalVisible && <Link href='/'>Go to the home page</Link>}
+      </div>
     </div>
   )
 }
