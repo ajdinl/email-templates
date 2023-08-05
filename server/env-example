@@ -1,0 +1,7 @@
+PORT = 4200
+MONGO_URI = your mongodb uri (mongodb uri)
+NODE_ENV = development
+JWT_SECRET = your jwt secret
+USER_EMAIL = your email (for testing purposes, use a one of your users email)
+USER_PASSWORD = your password (for testing purposes, use a one of your users password)
+USER_ID = your user id (for testing purposes, use a one of your users id)
