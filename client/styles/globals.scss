@@ -85,8 +85,9 @@ $warning-color: #ff0000;
     &__logo {
       background: url('/logo.png') no-repeat;
       background-size: contain;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
+      margin: 10px 0;
     }
 
     &__icon1 {
@@ -195,6 +196,10 @@ $warning-color: #ff0000;
       margin: 0 15px 0 0;
       width: 200px;
 
+      &.user-menu {
+        border: none;
+      }
+
       &__list {
         list-style: none;
         margin: 0;
@@ -212,9 +217,9 @@ $warning-color: #ff0000;
             color: $user-menu-item-color;
           }
 
-          &:hover {
-            background-color: $dropdown-button-color;
-          }
+          // &:hover {
+          //   background-color: $dropdown-button-color;
+          // }
         }
       }
     }
@@ -281,14 +286,14 @@ $warning-color: #ff0000;
           &__arrowup {
             width: 8px;
             height: 8px;
-            background: url('/aseets/images/arrow.svg') no-repeat;
+            background: url('/arrow.svg') no-repeat;
             background-size: contain;
           }
 
           &__arrowdown {
             width: 8px;
             height: 8px;
-            background: url('/aseets/images/arrow.svg') no-repeat;
+            background: url('/arrow.svg') no-repeat;
             background-size: contain;
             transform: rotate(180deg);
           }
@@ -310,8 +315,8 @@ $warning-color: #ff0000;
           color: $actions-button-color;
 
           :hover {
-            background-color: $actions-button-color;
-            color: white;
+            // background-color: $actions-button-color;
+            // color: white;
           }
         }
 
@@ -353,6 +358,7 @@ $warning-color: #ff0000;
             padding: 0;
 
             &__item {
+              width: 80px;
               padding: 10px 15px;
               cursor: pointer;
               color: $dropdown-item-color;
@@ -410,6 +416,8 @@ $warning-color: #ff0000;
     align-items: center;
     text-align: center;
     top: 30% !important;
+    border: 1px solid gray;
+    border-radius: 5px;
   }
 
   &.preview-modal {
@@ -439,7 +447,7 @@ $warning-color: #ff0000;
       margin-bottom: 20px;
     }
     &__image {
-      background: url('/aseets/images/clavagolf.png') no-repeat;
+      background: url('/preview.png') no-repeat;
       background-size: contain;
       width: 400px;
       height: 100px;
@@ -471,6 +479,7 @@ $warning-color: #ff0000;
     }
 
     &__close {
+      padding: 0 20px;
       text-decoration: none;
       color: $modal-close-button-color;
       font-size: 18px;
@@ -478,6 +487,7 @@ $warning-color: #ff0000;
       font-family: 'Libre Franklin';
 
       &.for-delete-modal {
+        padding: 10px;
         position: absolute;
         top: 20px;
         right: 20px;
@@ -515,8 +525,8 @@ $warning-color: #ff0000;
 
       input[type='text'],
       textarea {
-        width: calc(100% - 20px);
-        padding: 10px;
+        width: calc(100% - 30px);
+        padding: 10px 0 10px 10px;
         border: 1px solid $form-border-color;
         border-radius: 4px;
         font-size: 16px;
@@ -1245,9 +1255,9 @@ $largeLaptop: 1400px;
 
     &__upper {
       &__logo {
-        width: 100px;
-        height: 100px;
-        margin-top: 10px;
+        width: 80px;
+        height: 80px;
+        margin: 10px 0;
       }
       &__icon1,
       &__icon2,

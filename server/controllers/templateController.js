@@ -24,7 +24,8 @@ const createEmailTemplate = asyncHandler(async (req, res) => {
     name: req.body.name,
     subject: req.body.subject,
     body: req.body.body,
-    user: req.user.id,
+    // user: req.user.id,
+    user: '649c758700054d6d1e3313d2',
   })
 
   res.status(200).json(template)
@@ -65,15 +66,15 @@ const deleteEmailTemplate = asyncHandler(async (req, res) => {
     throw new Error('Template not found')
   }
 
-  if (!req.user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // if (!req.user) {
+  //   res.status(401)
+  //   throw new Error('User not found')
+  // }
 
-  if (template.user.toString() !== req.user.id) {
-    res.status(401)
-    throw new Error('User not authorized')
-  }
+  // if (template.user.toString() !== req.user.id) {
+  //   res.status(401)
+  //   throw new Error('User not authorized')
+  // }
 
   await Template.findByIdAndDelete(req.params.id)
 
