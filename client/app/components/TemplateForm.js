@@ -1,9 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
+import Modal from 'react-modal'
 
-export default function TemplateForm() {
+export default function TemplateForm({
+  templates,
+  createModalVisible,
+  setCreateModalVisible,
+  updateTemplates,
+  setUpdateTemplates,
+}) {
   const [templateName, setTemplateName] = useState('')
   const [templateSubject, setTemplateSubject] = useState('')
   const [templateBody, setTemplateBody] = useState('')
@@ -12,84 +18,173 @@ export default function TemplateForm() {
 
   const saveTemplate = (e) => {
     e.preventDefault()
-    // Implement save template logic here
+    if (!templateName || !templateSubject || !templateBody) {
+      return
+    }
+
+    if (templates.find((template) => template.name === templateName.trim())) {
+      setTemplateNameError('Template name must be unique')
+      return
+    }
+
+    const template = {
+      name: templateName,
+      subject: templateSubject,
+      body: templateBody,
+    }
+
+    fetch('http://localhost:4200/api/templates', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWM3NTg3MDAwNTRkNmQxZTMzMTNkMiIsImlhdCI6MTY5MDc5MDA1NCwiZXhwIjoxNjkwODc2NDU0fQ.v1mHtZDY_Sj2BEh0ZPZHVrGCONiRc8jTmYZsIxjGe4M',
+      },
+      body: JSON.stringify(template),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setTemplateName('')
+        setTemplateSubject('')
+        setTemplateBody('')
+        setUpdateTemplates(!updateTemplates)
+        closeCreateModal()
+        setTemplateNameError('')
+      })
   }
 
   const validateTemplateName = () => {
-    // Implement template name validation logic here
+    if (templateName.length < 3) {
+      setTemplateNameError('Template name must be at least 3 characters long')
+      return
+    } else {
+      setTemplateNameError('')
+    }
   }
 
   const togglePreviewModal = () => {
     setPreviewModalVisible(!previewModalVisible)
   }
-  return (
-    <div className='app-modal-content'>
-      <div className='app-modal-content__header'>
-        <h1 className='app-modal-content__header__title'>
-          Create a New Email Template
-        </h1>
-        <Link href='/' className='app-modal-content__header__close'>
-          X
-        </Link>
-      </div>
 
-      <div className='app-modal-content__body'>
-        <form className='app-modal-content__body__form' onSubmit={saveTemplate}>
-          <div className='app-modal-content__body__item'>
-            <label htmlFor='template-name'>Name</label>
-            <input
-              type='text'
-              // value={template.name}
-              id='template-name'
-              required
-              className={templateNameError ? 'error' : ''}
-              onBlur={validateTemplateName}
-              onChange={(e) => {} /* Handle change */}
-            />
-            {templateNameError && (
-              <div className='app-modal-content__body__item__error'>
-                {templateNameError}
-              </div>
-            )}
-          </div>
-          <div className='app-modal-content__body__item'>
-            <label htmlFor='template-subject'>Subject Line</label>
-            <input
-              type='text'
-              // value={template.subject}
-              id='template-subject'
-              required
-              onChange={(e) => {} /* Handle change */}
-            />
-          </div>
-          <div className='app-modal-content__body__item'>
-            <label htmlFor='template-body'>Message</label>
-            <textarea
-              // value={template.body}
-              id='template-body'
-              required
-              onChange={(e) => {} /* Handle change */}
-            />
-          </div>
-          <div className='app-modal-content__body__buttons'>
-            <button
-              type='submit'
-              className={`app-modal-content__body__buttons__button ${
-                // (templateNameError || !template.subject || !template.body) &&
-                'disabled'
-              }`}
-            >
-              Create New Email Template
-            </button>
-            <a
-              className='app-modal-content__body__buttons__preview-link'
-              onClick={togglePreviewModal}
-            >
-              Preview Email Template
-            </a>
-          </div>
-        </form>
+  const closePreviewModal = () => {
+    setPreviewModalVisible(false)
+  }
+
+  const handleTemplateNameChange = (e) => {
+    setTemplateName(e.target.value)
+  }
+
+  const handleTemplateSubjectChange = (e) => {
+    setTemplateSubject(e.target.value)
+  }
+
+  const handleTemplateBodyChange = (e) => {
+    setTemplateBody(e.target.value)
+  }
+
+  function closeCreateModal() {
+    setTemplateNameError('')
+    setTemplateName('')
+    setTemplateSubject('')
+    setTemplateBody('')
+    setCreateModalVisible(false)
+  }
+
+  const customStyles = {
+    overlay: { zIndex: 1000 },
+    content: {
+      overflow: 'hidden',
+    },
+  }
+
+  return (
+    <Modal
+      isOpen={createModalVisible}
+      onRequestClose={closeCreateModal}
+      contentLabel='Create Modal'
+      ariaHideApp={false}
+      style={customStyles}
+    >
+      <div className='app-modal-content app-modal'>
+        <div className='app-modal-content__header'>
+          <h1 className='app-modal-content__header__title'>
+            Create a New Email Template
+          </h1>
+          <a
+            onClick={closeCreateModal}
+            className='app-modal-content__header__close'
+          >
+            X
+          </a>
+        </div>
+
+        <div className='app-modal-content__body'>
+          <form
+            className='app-modal-content__body__form'
+            onSubmit={saveTemplate}
+          >
+            <div className='app-modal-content__body__item'>
+              <label htmlFor='template-name'>Name</label>
+              <input
+                type='text'
+                value={templateName}
+                id='template-name'
+                required
+                className={templateNameError ? 'error' : ''}
+                onBlur={validateTemplateName}
+                onChange={(e) => {
+                  handleTemplateNameChange(e)
+                }}
+              />
+              {templateNameError && (
+                <div className='app-modal-content__body__item__error'>
+                  {templateNameError}
+                </div>
+              )}
+            </div>
+            <div className='app-modal-content__body__item'>
+              <label htmlFor='template-subject'>Subject Line</label>
+              <input
+                type='text'
+                value={templateSubject}
+                id='template-subject'
+                required
+                onChange={(e) => {
+                  handleTemplateSubjectChange(e)
+                }}
+              />
+            </div>
+            <div className='app-modal-content__body__item'>
+              <label htmlFor='template-body'>Message</label>
+              <textarea
+                value={templateBody}
+                id='template-body'
+                required
+                onChange={(e) => {
+                  handleTemplateBodyChange(e)
+                }}
+              />
+            </div>
+            <div className='app-modal-content__body__buttons'>
+              <button
+                type='submit'
+                className={`app-modal-content__body__buttons__button ${
+                  (!templateName || !templateSubject || !templateBody) &&
+                  'disabled'
+                }`}
+              >
+                Create New Email Template
+              </button>
+              <a
+                className='app-modal-content__body__buttons__preview-link'
+                onClick={togglePreviewModal}
+              >
+                Preview Email Template
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Modal>
   )
 }
