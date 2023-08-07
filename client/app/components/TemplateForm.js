@@ -1,20 +1,22 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { addTemplate } from '@/api'
 import Modal from 'react-modal'
 
 export default function TemplateForm({
   templates,
   createModalVisible,
   setCreateModalVisible,
-  updateTemplates,
-  setUpdateTemplates,
 }) {
   const [templateName, setTemplateName] = useState('')
   const [templateSubject, setTemplateSubject] = useState('')
   const [templateBody, setTemplateBody] = useState('')
   const [templateNameError, setTemplateNameError] = useState('')
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
+
+  const router = useRouter()
 
   const saveTemplate = (e) => {
     e.preventDefault()
@@ -33,24 +35,14 @@ export default function TemplateForm({
       body: templateBody,
     }
 
-    fetch('http://localhost:4200/api/templates', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWM3NTg3MDAwNTRkNmQxZTMzMTNkMiIsImlhdCI6MTY5MDc5MDA1NCwiZXhwIjoxNjkwODc2NDU0fQ.v1mHtZDY_Sj2BEh0ZPZHVrGCONiRc8jTmYZsIxjGe4M',
-      },
-      body: JSON.stringify(template),
+    addTemplate(template).then(() => {
+      setTemplateName('')
+      setTemplateSubject('')
+      setTemplateBody('')
+      closeCreateModal()
+      setTemplateNameError('')
+      router.refresh()
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setTemplateName('')
-        setTemplateSubject('')
-        setTemplateBody('')
-        setUpdateTemplates(!updateTemplates)
-        closeCreateModal()
-        setTemplateNameError('')
-      })
   }
 
   const validateTemplateName = () => {
