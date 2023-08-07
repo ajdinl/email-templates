@@ -250,6 +250,7 @@ $warning-color: #ff0000;
       border-radius: 3px;
       padding: 15px 60px;
       background-color: transparent;
+      cursor: pointer;
     }
   }
 
@@ -395,28 +396,29 @@ $warning-color: #ff0000;
   overflow-y: auto;
   height: 100%;
   width: 90%;
+  background-color: #fff;
+  border: 1px solid gray;
+  border-radius: 5px;
+  top: 30% !important;
+  align-items: center;
+  text-align: center;
 
   &.edit-modal {
     width: 46rem;
     left: calc(50% - 24rem) !important;
+    top: 0 !important;
+    align-items: start;
+    text-align: left;
   }
 
   &.delete-modal {
     width: 20rem;
     height: 25rem;
-    align-items: center;
-    text-align: center;
-    top: 30% !important;
-    border: 1px solid gray;
-    border-radius: 5px;
   }
 
   &.preview-modal {
     width: 30rem;
     height: 35rem;
-    align-items: start;
-    text-align: center;
-    top: 30% !important;
   }
 }
 
@@ -474,6 +476,7 @@ $warning-color: #ff0000;
       color: $modal-close-button-color;
       font-size: 18px;
       font-weight: 700;
+      cursor: pointer;
 
       &.for-delete-modal {
         padding: 10px;
@@ -518,6 +521,7 @@ $warning-color: #ff0000;
         border-radius: 4px;
         font-size: 16px;
         margin-top: 4px;
+        font-family: 'Libre Franklin', sans-serif;
 
         &.error {
           box-shadow: 0 0 1.25pt 0.5pt $warning-color;

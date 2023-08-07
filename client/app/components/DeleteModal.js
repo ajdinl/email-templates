@@ -6,6 +6,10 @@ export default function DeleteModal({
   closeDeleteModal,
   deleteTemplate,
 }) {
+  const customStyles = {
+    overlay: { zIndex: 1000, backgroundColor: 'rgba(0, 0, 0, 0.75)' },
+  }
+
   return (
     <>
       <Modal
@@ -13,6 +17,7 @@ export default function DeleteModal({
         onRequestClose={closeDeleteModal}
         contentLabel='Delete Modal'
         ariaHideApp={false}
+        style={customStyles}
         className='app-modal-wrapper app-modal-wrapper--dialog delete-modal'
       >
         <div className='app-modal-content'>

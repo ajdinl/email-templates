@@ -39,15 +39,15 @@ const updateEmailTemplate = asyncHandler(async (req, res) => {
     throw new Error('Template not found')
   }
 
-  if (!req.user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // if (!req.user) {
+  //   res.status(401)
+  //   throw new Error('User not found')
+  // }
 
-  if (template.user.toString() !== req.user.id.toString()) {
-    res.status(401)
-    throw new Error('User not authorized')
-  }
+  // if (template.user.toString() !== req.user.id.toString()) {
+  //   res.status(401)
+  //   throw new Error('User not authorized')
+  // }
 
   const editTemplate = await Template.findByIdAndUpdate(
     req.params.id,
