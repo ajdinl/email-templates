@@ -1,15 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Menu, MenuItem } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import Moment from 'react-moment'
+import { deleteTemplate } from '@/api'
 import TemplateForm from './TemplateForm'
 import DeleteModal from './DeleteModal'
 
-export default function HomePage() {
-  const [templates, setTemplates] = useState([])
+export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTemplate, setSelectedTemplate] = useState(null)
   const [userFirstLetter, setUserFirstLetter] = useState('')
@@ -17,16 +18,8 @@ export default function HomePage() {
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
-  const [updateTemplates, setUpdateTemplates] = useState(false)
 
-  useEffect(() => {
-    fetch('http://localhost:4200/api/templates')
-      .then((res) => res.json())
-      .then((data) => {
-        setTemplates(data)
-      })
-      .catch((err) => console.log(err))
-  }, [updateTemplates])
+  const router = useRouter()
 
   const sortTemplatesBy = (sortType) => {
     // Implement sorting logic here
@@ -53,16 +46,10 @@ export default function HomePage() {
     // Implement save template logic here
   }
 
-  const deleteTemplate = () => {
-    fetch(`http://localhost:4200/api/templates/${selectedTemplate}`, {
-      method: 'DELETE',
+  const removeTemplate = () => {
+    deleteTemplate(selectedTemplate).then(() => {
+      router.refresh()
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setTemplates(templates.filter((template) => template._id !== data._id))
-        setUpdateTemplates(!updateTemplates)
-      })
-      .catch((err) => console.log(err))
 
     closeDeleteModal()
   }
@@ -268,14 +255,12 @@ export default function HomePage() {
           createModalVisible={createModalVisible}
           setCreateModalVisible={setCreateModalVisible}
           templates={templates}
-          updateTemplates={updateTemplates}
-          setUpdateTemplates={setUpdateTemplates}
         />
         {/* {deleteModal */}
         <DeleteModal
           deleteModalVisible={deleteModalVisible}
           closeDeleteModal={closeDeleteModal}
-          deleteTemplate={deleteTemplate}
+          deleteTemplate={removeTemplate}
         />
         {/* )} */}
         {previewModalVisible && selectedTemplate && (
