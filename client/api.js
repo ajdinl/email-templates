@@ -23,6 +23,20 @@ export const addTemplate = async (template) => {
   return newTemplate
 }
 
+export const editTemplate = async (template) => {
+  const response = await fetch(`${API_URL}/${template._id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+    },
+    body: JSON.stringify(template),
+  })
+  const updatedTemplate = await response.json()
+  if (response.status !== 200) throw Error(updatedTemplate.message)
+  return updatedTemplate
+}
+
 export const deleteTemplate = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',

@@ -3,10 +3,14 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { deleteTemplate } from '@/api'
+import Link from 'next/link'
 import { Menu, MenuItem } from '@szhsin/react-menu'
+import Moment from 'react-moment'
+import TemplateForm from './TemplateForm'
+import DeleteModal from './DeleteModal'
+import EditModal from './EditModal'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
-import Moment from 'react-moment'
 import {
   BsFillSendFill,
   BsFillPersonFill,
@@ -15,8 +19,6 @@ import {
 } from 'react-icons/bs'
 import { RxExit } from 'react-icons/rx'
 import { MdEmail } from 'react-icons/md'
-import TemplateForm from './TemplateForm'
-import DeleteModal from './DeleteModal'
 
 export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -72,6 +74,16 @@ export default function HomePage({ templates }) {
     setSelectedTemplate(null)
   }
 
+  const openEditModal = (template) => {
+    setSelectedTemplate(template)
+    setEditModalVisible(true)
+  }
+
+  const closeEditModal = () => {
+    setEditModalVisible(false)
+    setSelectedTemplate(null)
+  }
+
   function openDeleteModal(templateId) {
     setSelectedTemplate(templateId)
     setDeleteModalVisible(true)
@@ -91,7 +103,9 @@ export default function HomePage({ templates }) {
       <main className='application'>
         <div className='app-sidebar'>
           <div className='app-sidebar__upper'>
-            <MdEmail className='app-sidebar__upper__logo'></MdEmail>
+            <Link href='/'>
+              <MdEmail className='app-sidebar__upper__logo'></MdEmail>
+            </Link>
             <ul>
               <li>
                 <BsFillPersonFill className='app-sidebar__upper__icon1'></BsFillPersonFill>
@@ -234,7 +248,10 @@ export default function HomePage({ templates }) {
                         >
                           <MenuItem>
                             <ul className='application__content__list__items__cell__content__list'>
-                              <MenuItem className='application__content__list__items__cell__content__list__item'>
+                              <MenuItem
+                                className='application__content__list__items__cell__content__list__item'
+                                onClick={() => openEditModal(template)}
+                              >
                                 Edit
                               </MenuItem>
                               <MenuItem className='application__content__list__items__cell__content__list__item'>
@@ -257,8 +274,7 @@ export default function HomePage({ templates }) {
             </table>
           )}
         </div>
-        {/* Modals */}
-
+        {/* createModal */}
         <TemplateForm
           createModalVisible={createModalVisible}
           setCreateModalVisible={setCreateModalVisible}
@@ -270,6 +286,16 @@ export default function HomePage({ templates }) {
           closeDeleteModal={closeDeleteModal}
           deleteTemplate={removeTemplate}
         />
+        {/* {editModal */}
+
+        {editModalVisible && selectedTemplate && (
+          <EditModal
+            template={selectedTemplate}
+            editModalVisible={editModalVisible}
+            closeEditModal={closeEditModal}
+            templates={templates}
+          />
+        )}
         {/* )} */}
         {previewModalVisible && selectedTemplate && (
           <div className='app-modal-overlay'>{/* Preview Modal */}</div>
