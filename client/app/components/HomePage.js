@@ -2,11 +2,19 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { deleteTemplate } from '@/api'
 import { Menu, MenuItem } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import Moment from 'react-moment'
-import { deleteTemplate } from '@/api'
+import {
+  BsFillSendFill,
+  BsFillPersonFill,
+  BsInbox,
+  BsSearch,
+} from 'react-icons/bs'
+import { RxExit } from 'react-icons/rx'
+import { MdEmail } from 'react-icons/md'
 import TemplateForm from './TemplateForm'
 import DeleteModal from './DeleteModal'
 
@@ -83,23 +91,23 @@ export default function HomePage({ templates }) {
       <main className='application'>
         <div className='app-sidebar'>
           <div className='app-sidebar__upper'>
-            <div className='app-sidebar__upper__logo'></div>
+            <MdEmail className='app-sidebar__upper__logo'></MdEmail>
             <ul>
               <li>
-                <div className='app-sidebar__upper__icon1'></div>
+                <BsFillPersonFill className='app-sidebar__upper__icon1'></BsFillPersonFill>
               </li>
               <li>
-                <div className='app-sidebar__upper__icon2'></div>
+                <BsFillSendFill className='app-sidebar__upper__icon2'></BsFillSendFill>
               </li>
               <li>
-                <div className='app-sidebar__upper__icon3'></div>
+                <BsInbox className='app-sidebar__upper__icon3'></BsInbox>
               </li>
             </ul>
           </div>
           <div className='app-sidebar__lower'>
             <ul>
               <li>
-                <div className='app-sidebar__upper__icon4'></div>
+                <RxExit className='app-sidebar__upper__icon4'></RxExit>
               </li>
             </ul>
           </div>
@@ -113,7 +121,7 @@ export default function HomePage({ templates }) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <span className='app-header__search__icon'></span>
+          <BsSearch className='app-header__search__icon'></BsSearch>
           <div className='app-header__user'>
             <Menu
               menuButton={<a>T</a>}
