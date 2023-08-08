@@ -300,6 +300,10 @@ $warning-color: #ff0000;
 
         &.name {
           color: $preview-link-color;
+
+          span {
+            cursor: pointer;
+          }
         }
 
         &:nth-child(4) {
