@@ -7,12 +7,16 @@ export default function PreviewModal({
   previewModalVisible,
   closePreviewModal,
 }) {
+  const customStyles = {
+    overlay: { zIndex: 1000, backgroundColor: 'rgba(0, 0, 0, 0.75)' },
+  }
   return (
     <Modal
       isOpen={previewModalVisible}
       onRequestClose={closePreviewModal}
       className='app-modal-wrapper app-modal-wrapper--dialog preview-modal'
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className='app-modal-content'>
         <div className='app-modal-content__upper'>

@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { registerUser } from '@/api'
+import { useRouter } from 'next/navigation'
 
 export default function UserForm() {
   const [name, setName] = useState('')
@@ -9,9 +11,18 @@ export default function UserForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const createUser = (e) => {
+  const router = useRouter()
+
+  const createUser = async (e) => {
     e.preventDefault()
-    // Implement create user logic here
+
+    try {
+      const user = { name, email, password }
+      await registerUser(user)
+      router.push('/')
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
   }
 
   const togglePassowrdVisibility = () => {

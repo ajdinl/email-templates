@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { loginUser } from '@/api'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
@@ -9,9 +11,19 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
 
-  const handleLogin = (e) => {
+  const router = useRouter()
+
+  const handleLogin = async (e) => {
     e.preventDefault()
-    // Implement your login logic here
+
+    try {
+      const user = { email, password }
+      await loginUser(user)
+
+      router.push('/')
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   const togglePasswordVisibility = () => {

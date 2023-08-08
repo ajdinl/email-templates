@@ -225,7 +225,9 @@ export default function HomePage({ templates }) {
                       key={template._id}
                     >
                       <td className='application__content__list__items__cell name'>
-                        {template.name}
+                        <span onClick={() => openPreviewModal(template)}>
+                          {template.name}
+                        </span>
                       </td>
                       <td className='application__content__list__items__cell'>
                         {template.user}
