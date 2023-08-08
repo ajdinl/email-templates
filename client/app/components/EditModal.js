@@ -37,7 +37,7 @@ export default function EditModal({
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const updatedTemplate = {
@@ -47,10 +47,9 @@ export default function EditModal({
       body: templateBody,
     }
 
-    editTemplate(updatedTemplate).then(() => {
-      closeEditModal()
-      router.refresh()
-    })
+    await editTemplate(updatedTemplate)
+    closeEditModal()
+    router.refresh()
   }
 
   const customStyles = {
