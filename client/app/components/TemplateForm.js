@@ -18,7 +18,7 @@ export default function TemplateForm({
 
   const router = useRouter()
 
-  const saveTemplate = (e) => {
+  const saveTemplate = async (e) => {
     e.preventDefault()
     if (!templateName || !templateSubject || !templateBody) {
       return
@@ -35,7 +35,7 @@ export default function TemplateForm({
       body: templateBody,
     }
 
-    addTemplate(template).then(() => {
+    await addTemplate(template).then(() => {
       closeCreateModal()
       router.refresh()
     })

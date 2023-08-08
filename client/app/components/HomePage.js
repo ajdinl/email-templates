@@ -9,6 +9,7 @@ import Moment from 'react-moment'
 import TemplateForm from './TemplateForm'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
+import PreviewModal from './PreviewModal'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import {
@@ -56,12 +57,10 @@ export default function HomePage({ templates }) {
     // Implement save template logic here
   }
 
-  const removeTemplate = () => {
-    deleteTemplate(selectedTemplate).then(() => {
-      router.refresh()
-    })
-
+  const removeTemplate = async () => {
+    await deleteTemplate(selectedTemplate)
     closeDeleteModal()
+    router.refresh()
   }
 
   const openPreviewModal = (template) => {
@@ -254,7 +253,10 @@ export default function HomePage({ templates }) {
                               >
                                 Edit
                               </MenuItem>
-                              <MenuItem className='application__content__list__items__cell__content__list__item'>
+                              <MenuItem
+                                className='application__content__list__items__cell__content__list__item'
+                                onClick={() => openPreviewModal(template)}
+                              >
                                 Preview
                               </MenuItem>
                               <MenuItem
@@ -298,7 +300,11 @@ export default function HomePage({ templates }) {
         )}
         {/* )} */}
         {previewModalVisible && selectedTemplate && (
-          <div className='app-modal-overlay'>{/* Preview Modal */}</div>
+          <PreviewModal
+            template={selectedTemplate}
+            previewModalVisible={previewModalVisible}
+            closePreviewModal={closePreviewModal}
+          />
         )}
       </main>
     </>

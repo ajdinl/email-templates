@@ -418,7 +418,7 @@ $warning-color: #ff0000;
 
   &.preview-modal {
     width: 30rem;
-    height: 35rem;
+    height: auto;
   }
 }
 
@@ -445,6 +445,7 @@ $warning-color: #ff0000;
       width: 400px;
       height: 100px;
       padding: 20px 30px;
+      margin-bottom: 10px;
     }
   }
 
@@ -741,16 +742,22 @@ $largeLaptop: 1400px;
     }
 
     &.preview-modal {
-      width: 18rem;
-      height: 22rem;
+      width: 15rem;
+      height: auto;
     }
   }
 
   .app-modal-content {
     &__upper {
       &__image {
-        width: 200px;
+        width: 150px;
         height: 50px;
+      }
+
+      &__title {
+        &.for-preview-modal {
+          font-size: 12px;
+        }
       }
     }
     &__header {
@@ -762,12 +769,12 @@ $largeLaptop: 1400px;
         font-size: 16px;
 
         &.for-preview-modal {
-          font-size: 16px;
+          font-size: 12px;
         }
       }
 
       &__close {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
@@ -911,7 +918,7 @@ $largeLaptop: 1400px;
 
     &.preview-modal {
       width: 18rem;
-      height: 22rem;
+      height: auto;
     }
   }
 
