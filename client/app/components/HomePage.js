@@ -20,7 +20,6 @@ import {
 } from 'react-icons/bs'
 import { RxExit } from 'react-icons/rx'
 import { MdEmail } from 'react-icons/md'
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'
 import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
 
 export default function HomePage({ templates }) {
