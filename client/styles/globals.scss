@@ -277,18 +277,22 @@ $warning-color: #ff0000;
           }
 
           &__arrowup {
-            width: 8px;
-            height: 8px;
-            background: url('/arrow.svg') no-repeat;
-            background-size: contain;
+            font-size: 12px;
+            margin-bottom: -5px;
+            cursor: pointer;
+
+            &.active {
+              color: #0066cc;
+            }
           }
 
           &__arrowdown {
-            width: 8px;
-            height: 8px;
-            background: url('/arrow.svg') no-repeat;
-            background-size: contain;
-            transform: rotate(180deg);
+            font-size: 12px;
+            cursor: pointer;
+
+            &.active {
+              color: #0066cc;
+            }
           }
         }
       }

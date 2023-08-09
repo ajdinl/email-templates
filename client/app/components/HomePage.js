@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { deleteTemplate } from '@/api'
+import { deleteTemplate } from '../../api'
 import Link from 'next/link'
 import { Menu, MenuItem } from '@szhsin/react-menu'
 import Moment from 'react-moment'
@@ -20,9 +20,12 @@ import {
 } from 'react-icons/bs'
 import { RxExit } from 'react-icons/rx'
 import { MdEmail } from 'react-icons/md'
+import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
 
 export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [filteredTemplates, setFilteredTemplates] = useState(templates)
+  const [currentSortType, setCurrentSortType] = useState(null)
   const [selectedTemplate, setSelectedTemplate] = useState(null)
   const [userFirstLetter, setUserFirstLetter] = useState('')
   const [createModalVisible, setCreateModalVisible] = useState(false)
@@ -30,31 +33,41 @@ export default function HomePage({ templates }) {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
 
+  useEffect(() => {
+    const filtered = templates.filter((template) =>
+      template.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    setFilteredTemplates(filtered)
+  }, [searchQuery, templates])
+
+  useEffect(() => {
+    setFilteredTemplates(sortTemplatesBy(currentSortType))
+  }, [currentSortType])
+
   const router = useRouter()
 
   const sortTemplatesBy = (sortType) => {
-    // Implement sorting logic here
+    setCurrentSortType(sortType)
+
     if (sortType === 'name-desc') {
-      // Sort by name descending
-
-      return templates.sort((a, b) => {
-        return a.name > b.name ? 1 : -1
-      })
+      return [...filteredTemplates].sort((a, b) => (a.name > b.name ? -1 : 1))
     } else if (sortType === 'name-asc') {
-      // Sort by name ascending
-
-      return templates.sort((a, b) => {
-        return a.name < b.name ? 1 : -1
-      })
+      return [...filteredTemplates].sort((a, b) => (a.name > b.name ? 1 : -1))
+    } else if (sortType === 'user-desc') {
+      return [...filteredTemplates].sort((a, b) => (a.user > b.user ? -1 : 1))
+    } else if (sortType === 'user-asc') {
+      return [...filteredTemplates].sort((a, b) => (a.user > b.user ? 1 : -1))
+    } else if (sortType === 'date-desc') {
+      return [...filteredTemplates].sort((a, b) =>
+        new Date(a.updatedAt) > new Date(b.updatedAt) ? -1 : 1
+      )
+    } else if (sortType === 'date-asc') {
+      return [...filteredTemplates].sort((a, b) =>
+        new Date(a.updatedAt) > new Date(b.updatedAt) ? 1 : -1
+      )
+    } else {
+      return filteredTemplates
     }
-  }
-
-  const validateTemplateName = () => {
-    // Implement validation logic here
-  }
-
-  const saveTemplate = () => {
-    // Implement save template logic here
   }
 
   const removeTemplate = async () => {
@@ -171,13 +184,21 @@ export default function HomePage({ templates }) {
                       </div>
                       <div>
                         <div
-                          className='application__content__list__header__cell__items__arrowup'
+                          className={`application__content__list__header__cell__items__arrowup ${
+                            currentSortType === 'name-desc' ? 'active' : ''
+                          }`}
                           onClick={() => sortTemplatesBy('name-desc')}
-                        ></div>
+                        >
+                          <BiUpArrowAlt></BiUpArrowAlt>
+                        </div>
                         <div
-                          className='application__content__list__header__cell__items__arrowdown'
+                          className={`application__content__list__header__cell__items__arrowdown ${
+                            currentSortType === 'name-asc' ? 'active' : ''
+                          }`}
                           onClick={() => sortTemplatesBy('name-asc')}
-                        ></div>
+                        >
+                          <BiDownArrowAlt></BiDownArrowAlt>
+                        </div>
                       </div>
                     </div>
                   </th>
@@ -187,13 +208,22 @@ export default function HomePage({ templates }) {
                         Last Modified By
                       </div>
                       <div>
-                        {/* <div
-                  className="application__content__list__header__cell__items__arrowup"
-                  {{on "click" (fn this.sortTemplatesBy "user-desc")}}
-                ></div><div
-                  className="application__content__list__header__cell__items__arrowdown"
-                  {{on "click" (fn this.sortTemplatesBy "user-asc")}}
-                ></div> */}
+                        <div
+                          className={`application__content__list__header__cell__items__arrowup ${
+                            currentSortType === 'user-desc' ? 'active' : ''
+                          }`}
+                          onClick={() => sortTemplatesBy('user-desc')}
+                        >
+                          <BiUpArrowAlt></BiUpArrowAlt>
+                        </div>
+                        <div
+                          className={`application__content__list__header__cell__items__arrowdown ${
+                            currentSortType === 'user-asc' ? 'active' : ''
+                          }`}
+                          onClick={() => sortTemplatesBy('user-asc')}
+                        >
+                          <BiDownArrowAlt></BiDownArrowAlt>
+                        </div>
                       </div>
                     </div>
                   </th>
@@ -203,13 +233,22 @@ export default function HomePage({ templates }) {
                         Last Modified On
                       </div>
                       <div>
-                        {/* <div
-                  className="application__content__list__header__cell__items__arrowup"
-                  {{on "click" (fn this.sortTemplatesBy "date-desc")}}
-                ></div><div
-                  className="application__content__list__header__cell__items__arrowdown"
-                  {{on "click" (fn this.sortTemplatesBy "date-asc")}}
-                ></div> */}
+                        <div
+                          className={`application__content__list__header__cell__items__arrowup ${
+                            currentSortType === 'date-desc' ? 'active' : ''
+                          }`}
+                          onClick={() => sortTemplatesBy('date-desc')}
+                        >
+                          <BiUpArrowAlt></BiUpArrowAlt>
+                        </div>
+                        <div
+                          className={`application__content__list__header__cell__items__arrowdown ${
+                            currentSortType === 'date-asc' ? 'active' : ''
+                          }`}
+                          onClick={() => sortTemplatesBy('date-asc')}
+                        >
+                          <BiDownArrowAlt></BiDownArrowAlt>
+                        </div>
                       </div>
                     </div>
                   </th>
@@ -217,7 +256,7 @@ export default function HomePage({ templates }) {
                 </tr>
               </thead>
               <tbody className='application__content__list__items'>
-                {templates.map((template) => {
+                {filteredTemplates.map((template) => {
                   const updatedAt = new Date(template.updatedAt)
                   return (
                     <tr
@@ -282,7 +321,7 @@ export default function HomePage({ templates }) {
         <TemplateForm
           createModalVisible={createModalVisible}
           setCreateModalVisible={setCreateModalVisible}
-          templates={templates}
+          templates={filteredTemplates}
         />
         {/* {deleteModal */}
         <DeleteModal

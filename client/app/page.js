@@ -1,5 +1,5 @@
-import HomePage from '@/app/components/HomePage'
-import { getAllTemplates } from '@/api'
+import HomePage from '../app/components/HomePage'
+import { getAllTemplates } from '../api'
 
 export default async function Home() {
   const templates = await getAllTemplates()
