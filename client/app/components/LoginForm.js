@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { loginUser } from '@/api'
+import { loginUser } from '../../api'
 import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
