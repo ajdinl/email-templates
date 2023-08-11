@@ -21,6 +21,7 @@ import {
 import { RxExit } from 'react-icons/rx'
 import { MdEmail } from 'react-icons/md'
 import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
+import { signOut } from 'next-auth/react'
 
 export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -154,7 +155,10 @@ export default function HomePage({ templates }) {
               transition
               className='app-header__user__user-menu user-menu'
             >
-              <MenuItem className='app-header__user__user-menu__item'>
+              <MenuItem
+                className='app-header__user__user-menu__item'
+                onClick={signOut}
+              >
                 Log out
               </MenuItem>
             </Menu>
