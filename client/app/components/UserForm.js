@@ -19,9 +19,10 @@ export default function UserForm() {
     try {
       const user = { name, email, password }
       await registerUser(user)
-      router.push('/')
     } catch (error) {
       setErrorMessage(error.message)
+    } finally {
+      router.push('/login')
     }
   }
 
