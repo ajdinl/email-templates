@@ -279,7 +279,7 @@ export default function HomePage({ templates, userName }) {
                         </span>
                       </td>
                       <td className='application__content__list__items__cell'>
-                        {template.user}
+                        {userName}
                       </td>
                       <td className='application__content__list__items__cell'>
                         <Moment format='MM/DD/YY @ h:mm a'>{updatedAt}</Moment>
