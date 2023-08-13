@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { registerUser } from '../../api'
+import { registerUser } from '../api'
 import { useRouter } from 'next/navigation'
 
 export default function UserForm() {
@@ -17,10 +17,9 @@ export default function UserForm() {
     e.preventDefault()
 
     try {
-      const user = { name, email, password }
-      await registerUser(user)
+      await registerUser({ name, email, password })
     } catch (error) {
-      setErrorMessage(error.message)
+      setErrorMessage('An error occurred')
     } finally {
       router.push('/login')
     }
@@ -59,7 +58,7 @@ export default function UserForm() {
           />
         </div>
         <div className='app-login__form-group'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='create-password'>Password</label>
           <input
             id='create-password'
             value={password}
@@ -76,8 +75,12 @@ export default function UserForm() {
             <input type='checkbox' onClick={togglePassowrdVisibility} />
           </div>
         </div>
-        <button type='submit' className='app-login__btn-secondary'>
-          Create
+        <button
+          type='submit'
+          role='button'
+          className='app-login__btn-secondary'
+        >
+          Create Account
         </button>
       </form>
       {errorMessage && <div className='app-login__error'>{errorMessage}</div>}
