@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { loginUser } from '../../api'
+import { loginUser } from '../api'
 import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
@@ -17,12 +17,11 @@ export default function LoginForm() {
     e.preventDefault()
 
     try {
-      const user = { email, password }
-      await loginUser(user)
+      await loginUser({ email, password })
 
       router.push('/')
     } catch (error) {
-      setError(error.message)
+      setError('Invalid email or password')
     }
   }
 
@@ -65,8 +64,8 @@ export default function LoginForm() {
               <input type='checkbox' onClick={togglePasswordVisibility} />
             </div>
           </div>
-          <button type='submit' className='app-login__btn'>
-            Log in
+          <button type='submit' role='button' className='app-login__btn'>
+            Login
           </button>
         </form>
         <Link href='user/new' className='app-login__btn-secondary'>

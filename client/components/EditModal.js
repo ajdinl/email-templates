@@ -2,7 +2,7 @@
 
 import Modal from 'react-modal'
 import { useState } from 'react'
-import { editTemplate } from '../../api'
+import { editTemplate } from '../api'
 import { useRouter } from 'next/navigation'
 
 export default function EditModal({
