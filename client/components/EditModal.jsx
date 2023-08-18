@@ -11,12 +11,20 @@ export default function EditModal({
   closeEditModal,
   templates,
 }) {
-  const [templateName, setTemplateName] = useState(template.name)
-  const [templateSubject, setTemplateSubject] = useState(template.subject)
-  const [templateBody, setTemplateBody] = useState(template.body)
+  const [formData, setFormData] = useState({
+    templateName: template.name,
+    templateSubject: template.subject,
+    templateBody: template.body,
+  })
   const [templateNameError, setTemplateNameError] = useState('')
 
   const router = useRouter()
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const { templateName, templateSubject, templateBody } = formData
 
   const validateTemplateName = () => {
     if (!templateName) {
@@ -87,10 +95,11 @@ export default function EditModal({
                 id='template-name'
                 type='text'
                 value={templateName}
+                name='templateName'
                 required
                 className={templateNameError ? 'error' : ''}
                 onBlur={validateTemplateName}
-                onChange={(e) => setTemplateName(e.target.value)}
+                onChange={onChange}
               />
               {templateNameError && (
                 <div className='app-modal-content__body__item__error'>
@@ -104,8 +113,9 @@ export default function EditModal({
                 id='template-subject'
                 type='text'
                 value={templateSubject}
+                name='templateSubject'
                 required
-                onChange={(e) => setTemplateSubject(e.target.value)}
+                onChange={onChange}
               />
             </div>
             <div className='app-modal-content__body__item'>
@@ -113,8 +123,9 @@ export default function EditModal({
               <textarea
                 id='template-body'
                 value={templateBody}
+                name='templateBody'
                 required
-                onChange={(e) => setTemplateBody(e.target.value)}
+                onChange={onChange}
               />
             </div>
             <div className='app-modal-content__body__buttons'>
