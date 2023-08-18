@@ -10,13 +10,21 @@ export default function TemplateForm({
   createModalVisible,
   setCreateModalVisible,
 }) {
-  const [templateName, setTemplateName] = useState('')
-  const [templateSubject, setTemplateSubject] = useState('')
-  const [templateBody, setTemplateBody] = useState('')
+  const [formData, setFormData] = useState({
+    templateName: '',
+    templateSubject: '',
+    templateBody: '',
+  })
   const [templateNameError, setTemplateNameError] = useState('')
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
 
   const router = useRouter()
+
+  const { templateName, templateSubject, templateBody } = formData
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const saveTemplate = async (e) => {
     e.preventDefault()
@@ -58,22 +66,8 @@ export default function TemplateForm({
     setPreviewModalVisible(false)
   }
 
-  const handleTemplateNameChange = (e) => {
-    setTemplateName(e.target.value)
-  }
-
-  const handleTemplateSubjectChange = (e) => {
-    setTemplateSubject(e.target.value)
-  }
-
-  const handleTemplateBodyChange = (e) => {
-    setTemplateBody(e.target.value)
-  }
-
   function closeCreateModal() {
-    setTemplateName('')
-    setTemplateSubject('')
-    setTemplateBody('')
+    setFormData({ templateName: '', templateSubject: '', templateBody: '' })
     setTemplateNameError('')
     setCreateModalVisible(false)
   }
@@ -116,13 +110,12 @@ export default function TemplateForm({
               <input
                 type='text'
                 value={templateName}
+                name='templateName'
                 id='template-name'
                 required
                 className={templateNameError ? 'error' : ''}
                 onBlur={validateTemplateName}
-                onChange={(e) => {
-                  handleTemplateNameChange(e)
-                }}
+                onChange={onChange}
               />
               {templateNameError && (
                 <div className='app-modal-content__body__item__error'>
@@ -135,22 +128,20 @@ export default function TemplateForm({
               <input
                 type='text'
                 value={templateSubject}
+                name='templateSubject'
                 id='template-subject'
                 required
-                onChange={(e) => {
-                  handleTemplateSubjectChange(e)
-                }}
+                onChange={onChange}
               />
             </div>
             <div className='app-modal-content__body__item'>
               <label htmlFor='template-body'>Message</label>
               <textarea
                 value={templateBody}
+                name='templateBody'
                 id='template-body'
                 required
-                onChange={(e) => {
-                  handleTemplateBodyChange(e)
-                }}
+                onChange={onChange}
               />
             </div>
             <div className='app-modal-content__body__buttons'>
