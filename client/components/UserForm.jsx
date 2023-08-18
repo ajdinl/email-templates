@@ -5,13 +5,21 @@ import { registerUser } from '../api'
 import { useRouter } from 'next/navigation'
 
 export default function UserForm() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
   const router = useRouter()
+
+  const { name, email, password } = formData
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const createUser = async (e) => {
     e.preventDefault()
@@ -38,11 +46,12 @@ export default function UserForm() {
           <input
             id='identification'
             value={name}
+            name='name'
             placeholder='Enter Name'
             className='app-login__form-group__form-control'
             required
             minLength='3'
-            onChange={(e) => setName(e.target.value)}
+            onChange={onChange}
           />
         </div>
         <div className='app-login__form-group'>
@@ -50,11 +59,12 @@ export default function UserForm() {
           <input
             id='identification'
             value={email}
+            name='email'
             placeholder='Enter Email'
             className='app-login__form-group__form-control'
             required
             minLength='5'
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={onChange}
           />
         </div>
         <div className='app-login__form-group'>
@@ -62,13 +72,14 @@ export default function UserForm() {
           <input
             id='create-password'
             value={password}
+            name='password'
             placeholder='Enter Password'
             className='app-login__form-group__form-control'
             autoComplete='off'
             type={showPassword ? 'text' : 'password'}
             required
             minLength='3'
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={onChange}
           />
           <div>
             {showPassword ? 'Hide Password' : 'Show Password'}
