@@ -6,12 +6,17 @@ import { loginUser } from '../api'
 import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formData, setFormData] = useState({ email: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
 
+  const { email, password } = formData
+
   const router = useRouter()
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -39,11 +44,12 @@ export default function LoginForm() {
               id='identification'
               type='email'
               value={email}
+              name='email'
               placeholder='Enter Email'
               className='app-login__form-group__form-control'
               required
               minLength='5'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={onChange}
             />
           </div>
           <div className='app-login__form-group'>
@@ -52,12 +58,13 @@ export default function LoginForm() {
               id='password'
               type={showPassword ? 'text' : 'password'}
               value={password}
+              name='password'
               placeholder='Enter Password'
               className='app-login__form-group__form-control'
               autoComplete='off'
               required
               minLength='3'
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={onChange}
             />
             <div>
               {showPassword ? 'Hide Password' : 'Show Password'}
