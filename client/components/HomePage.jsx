@@ -23,7 +23,7 @@ import { MdEmail } from 'react-icons/md'
 import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
 import { signOut } from 'next-auth/react'
 
-export default function HomePage({ templates }) {
+export default function HomePage({ templates, userName }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filteredTemplates, setFilteredTemplates] = useState(templates)
   const [currentSortType, setCurrentSortType] = useState(null)
@@ -44,6 +44,12 @@ export default function HomePage({ templates }) {
   useEffect(() => {
     setFilteredTemplates(sortTemplatesBy(currentSortType))
   }, [currentSortType])
+
+  useEffect(() => {
+    if (userName) {
+      setUserFirstLetter(userName[0].toUpperCase())
+    }
+  }, [userName])
 
   const router = useRouter()
 
@@ -151,7 +157,7 @@ export default function HomePage({ templates }) {
           <BsSearch className='app-header__search__icon'></BsSearch>
           <div className='app-header__user'>
             <Menu
-              menuButton={<a>T</a>}
+              menuButton={<a>{userFirstLetter}</a>}
               transition
               className='app-header__user__user-menu user-menu'
             >
@@ -273,7 +279,7 @@ export default function HomePage({ templates }) {
                         </span>
                       </td>
                       <td className='application__content__list__items__cell'>
-                        {template.user}
+                        {userName}
                       </td>
                       <td className='application__content__list__items__cell'>
                         <Moment format='MM/DD/YY @ h:mm a'>{updatedAt}</Moment>
