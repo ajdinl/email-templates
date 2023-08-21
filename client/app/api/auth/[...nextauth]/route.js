@@ -50,7 +50,7 @@ const handler = NextAuth({
     colorScheme: 'light',
   },
   pages: {
-    // signIn: '/login',
+    signIn: '/login',
   },
 })
 

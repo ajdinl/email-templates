@@ -23,11 +23,18 @@ export default function LoginForm() {
     e.preventDefault()
 
     try {
-      await loginUser({ email, password })
-
-      router.push('/')
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      })
+      if (res.error) {
+        setError('Invalid email or password')
+      } else {
+        router.push('/')
+      }
     } catch (error) {
-      setError('Invalid email or password')
+      setError(error)
     }
   }
 
