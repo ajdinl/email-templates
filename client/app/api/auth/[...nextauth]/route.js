@@ -9,7 +9,7 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET,
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'Email',
       credentials: {
         email: {
           label: 'Email',
@@ -42,18 +42,6 @@ const handler = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user, account, profile }) {
-      user && (token.user = user)
-      return token
-    },
-    async session({ session, user, token }) {
-      session = {
-        user: token.user,
-      }
-      return session
-    },
-  },
   session: {
     jwt: true,
     maxAge: 24 * 60 * 60,
@@ -62,7 +50,7 @@ const handler = NextAuth({
     colorScheme: 'light',
   },
   pages: {
-    signIn: '/login',
+    // signIn: '/login',
   },
 })
 
