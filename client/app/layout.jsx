@@ -13,7 +13,7 @@ export const metadata = {
   description: 'A simple application to create and send email templates',
 }
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <Provider>
