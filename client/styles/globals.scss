@@ -180,6 +180,12 @@ $warning-color: #ff0000;
     font-weight: 400;
     cursor: pointer;
 
+    &__avatar {
+      width: 50x;
+      height: 50px;
+      border-radius: 50%;
+    }
+
     &__user-menu {
       background-color: $user-menu-background-color;
       border: 1px solid rgba(0, 0, 0, 0.15);
@@ -660,6 +666,16 @@ $warning-color: #ff0000;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 20px;
+
+    &__github {
+      background-color: black;
+      color: white;
+      margin-top: 20px;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+    }
 
     &:hover {
       background-color: $login-button-color-hover;

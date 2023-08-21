@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { loginUser } from '../api'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({ email: '', password: '' })
@@ -22,11 +23,18 @@ export default function LoginForm() {
     e.preventDefault()
 
     try {
-      await loginUser({ email, password })
-
-      router.push('/')
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      })
+      if (res.error) {
+        setError('Invalid email or password')
+      } else {
+        router.push('/')
+      }
     } catch (error) {
-      setError('Invalid email or password')
+      setError(error)
     }
   }
 
@@ -78,6 +86,12 @@ export default function LoginForm() {
         <Link href='user/new' className='app-login__btn-secondary'>
           Create new Account
         </Link>
+        <button
+          onClick={() => signIn('github', { callbackUrl: '/' })}
+          className='app-login__btn__github'
+        >
+          Sign in with GitHub
+        </button>
         {error && <div className='app-login__error'>{error}</div>}
       </div>
     </>
