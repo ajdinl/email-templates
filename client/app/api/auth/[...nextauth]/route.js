@@ -11,11 +11,17 @@ const handler = NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'Email' },
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'Email',
+          required: true,
+        },
         password: {
           label: 'Password',
           type: 'password',
           placeholder: 'Password',
+          required: true,
         },
       },
       async authorize(credentials) {
@@ -28,8 +34,11 @@ const handler = NextAuth({
           }
         )
         const user = await res.json()
-
-        return user
+        if (res.ok && user) {
+          return user
+        } else {
+          return null
+        }
       },
     }),
   ],
@@ -38,16 +47,22 @@ const handler = NextAuth({
       user && (token.user = user)
       return token
     },
-    async session({ session, token, user }) {
+    async session({ session, user, token }) {
       session = {
-        ...session,
-        user: {
-          id: user.id,
-          ...session.user,
-        },
+        user: token.user,
       }
       return session
     },
+  },
+  session: {
+    jwt: true,
+    maxAge: 24 * 60 * 60,
+  },
+  theme: {
+    colorScheme: 'light',
+  },
+  pages: {
+    signIn: '/login',
   },
 })
 

@@ -21,9 +21,9 @@ import {
 import { RxExit } from 'react-icons/rx'
 import { MdEmail } from 'react-icons/md'
 import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
-export default function HomePage({ templates, userName }) {
+export default function HomePage({ templates }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filteredTemplates, setFilteredTemplates] = useState(templates)
   const [currentSortType, setCurrentSortType] = useState(null)
@@ -33,6 +33,10 @@ export default function HomePage({ templates, userName }) {
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
+
+  const { data: session } = useSession()
+  const userName = session?.user?.name
+  const userAvatar = session?.user?.image
 
   useEffect(() => {
     const filtered = templates.filter((template) =>
@@ -157,7 +161,18 @@ export default function HomePage({ templates, userName }) {
           <BsSearch className='app-header__search__icon'></BsSearch>
           <div className='app-header__user'>
             <Menu
-              menuButton={<a>{userFirstLetter}</a>}
+              menuButton={
+                userAvatar ? (
+                  <img
+                    src={userAvatar}
+                    className='app-header__user__avatar'
+                  ></img>
+                ) : (
+                  <div className='app-header__user__avatar__placeholder'>
+                    {userFirstLetter}
+                  </div>
+                )
+              }
               transition
               className='app-header__user__user-menu user-menu'
             >
