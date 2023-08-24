@@ -1,8 +1,12 @@
 import HomePage from '../components/HomePage'
 import { getAllTemplates } from '../api'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]/route'
 
 export default async function Home() {
-  const templates = await getAllTemplates()
+  const session = await getServerSession(authOptions)
+  const token = session?.user?.token
+  const templates = await getAllTemplates(token)
 
   return (
     <>

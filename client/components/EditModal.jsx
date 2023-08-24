@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { editTemplate } from '../api'
 import { useRouter } from 'next/navigation'
 import PreviewModal from './PreviewModal'
+import { useSession } from 'next-auth/react'
 
 export default function EditModal({
   template,
@@ -19,6 +20,9 @@ export default function EditModal({
   })
   const [templateNameError, setTemplateNameError] = useState('')
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
+
+  const { data: session } = useSession()
+  const token = session?.user?.token
 
   const router = useRouter()
 
@@ -58,7 +62,7 @@ export default function EditModal({
       body,
     }
 
-    await editTemplate(updatedTemplate)
+    await editTemplate(updatedTemplate, token)
     closeEditModal()
     router.refresh()
   }

@@ -37,6 +37,7 @@ export default function HomePage({ templates }) {
   const { data: session } = useSession()
   const userName = session?.user?.name
   const userAvatar = session?.user?.image
+  const token = session?.user?.token
 
   useEffect(() => {
     const filtered = templates.filter((template) =>
@@ -82,7 +83,7 @@ export default function HomePage({ templates }) {
   }
 
   const removeTemplate = async () => {
-    await deleteTemplate(selectedTemplate)
+    await deleteTemplate(selectedTemplate, token)
     closeDeleteModal()
     router.refresh()
   }
