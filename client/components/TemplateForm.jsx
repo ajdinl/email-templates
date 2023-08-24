@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { addTemplate } from '../api'
 import Modal from 'react-modal'
 import PreviewModal from './PreviewModal'
+import { useSession } from 'next-auth/react'
 
 export default function TemplateForm({
   templates,
@@ -18,6 +19,9 @@ export default function TemplateForm({
   })
   const [templateNameError, setTemplateNameError] = useState('')
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
+
+  const { data: session } = useSession()
+  const token = session?.user?.token
 
   const router = useRouter()
 
@@ -44,7 +48,7 @@ export default function TemplateForm({
       body,
     }
 
-    await addTemplate(template).then(() => {
+    await addTemplate(template, token).then(() => {
       closeCreateModal()
       router.refresh()
     })

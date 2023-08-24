@@ -11,13 +11,13 @@ const {
 
 router
   .route('/')
-  .get(/*protect,*/ getEmailTemplates)
-  .post(/*protect,*/ createEmailTemplate)
+  .get(protect, getEmailTemplates)
+  .post(protect, createEmailTemplate)
 
 router
   .route('/:id')
-  .get(/*protect,*/ getEmailTemplate)
-  .put(/*protect,*/ updateEmailTemplate)
-  .delete(/*protect,*/ deleteEmailTemplate)
+  .get(protect, getEmailTemplate)
+  .put(protect, updateEmailTemplate)
+  .delete(protect, deleteEmailTemplate)
 
 module.exports = router

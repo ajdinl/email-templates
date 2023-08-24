@@ -86,12 +86,6 @@ export default function LoginForm() {
         <Link href='user/new' className='app-login__btn-secondary'>
           Create new Account
         </Link>
-        <button
-          onClick={() => signIn('github', { callbackUrl: '/' })}
-          className='app-login__btn__github'
-        >
-          Sign in with GitHub
-        </button>
         {error && <div className='app-login__error'>{error}</div>}
       </div>
     </>
