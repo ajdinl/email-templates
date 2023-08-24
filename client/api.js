@@ -1,8 +1,13 @@
-export const getAllTemplates = async () => {
+export const getAllTemplates = async (token) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/templates/`,
     {
       cache: 'no-store',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   )
   const templates = await response.json()
@@ -10,14 +15,14 @@ export const getAllTemplates = async () => {
   return templates
 }
 
-export const addTemplate = async (template) => {
+export const addTemplate = async (template, token) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/templates`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(template),
     }
@@ -27,14 +32,14 @@ export const addTemplate = async (template) => {
   return newTemplate
 }
 
-export const editTemplate = async (template) => {
+export const editTemplate = async (template, token) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/templates/${template._id}`,
     {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(template),
     }
@@ -44,11 +49,15 @@ export const editTemplate = async (template) => {
   return updatedTemplate
 }
 
-export const deleteTemplate = async (id) => {
+export const deleteTemplate = async (id, token) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/templates/${id}`,
     {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     }
   )
   const template = await response.json()
