@@ -1,7 +1,7 @@
-import HomePage from '../components/HomePage'
-import { getAllTemplates } from '../api'
+import HomePage from '../_components/HomePage'
+import { getAllTemplates } from '../../api'
 import { getServerSession } from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]/route'
+import { authOptions } from '../api/auth/[...nextauth]/route'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)

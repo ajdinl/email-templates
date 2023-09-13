@@ -1,6 +1,6 @@
-import '../styles/globals.scss'
+import '../../styles/globals.scss'
 import { Roboto } from 'next/font/google'
-import Provider from './context/Provider'
+import Provider from '../context/Provider'
 
 const roboto = Roboto({
   weight: '400',

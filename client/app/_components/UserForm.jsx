@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { registerUser } from '../api'
+import { registerUser } from '../../api'
 import { useRouter } from 'next/navigation'
 
 export default function UserForm() {
