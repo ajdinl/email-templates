@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { loginUser } from '../api'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 

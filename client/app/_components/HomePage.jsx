@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { deleteTemplate } from '../api'
+import { deleteTemplate } from '../../api'
 import Link from 'next/link'
 import { Menu, MenuItem } from '@szhsin/react-menu'
 import Moment from 'react-moment'
@@ -61,24 +61,33 @@ export default function HomePage({ templates }) {
   const sortTemplatesBy = (sortType) => {
     setCurrentSortType(sortType)
 
-    if (sortType === 'name-desc') {
-      return [...filteredTemplates].sort((a, b) => (a.name > b.name ? -1 : 1))
-    } else if (sortType === 'name-asc') {
-      return [...filteredTemplates].sort((a, b) => (a.name > b.name ? 1 : -1))
-    } else if (sortType === 'user-desc') {
-      return [...filteredTemplates].sort((a, b) => (a.user > b.user ? -1 : 1))
-    } else if (sortType === 'user-asc') {
-      return [...filteredTemplates].sort((a, b) => (a.user > b.user ? 1 : -1))
-    } else if (sortType === 'date-desc') {
-      return [...filteredTemplates].sort((a, b) =>
-        new Date(a.updatedAt) > new Date(b.updatedAt) ? -1 : 1
-      )
-    } else if (sortType === 'date-asc') {
-      return [...filteredTemplates].sort((a, b) =>
-        new Date(a.updatedAt) > new Date(b.updatedAt) ? 1 : -1
-      )
-    } else {
-      return filteredTemplates
+    switch (sortType) {
+      case 'name-desc':
+        return [...filteredTemplates].sort((a, b) =>
+          b.name.localeCompare(a.name)
+        )
+      case 'name-asc':
+        return [...filteredTemplates].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )
+      case 'user-desc':
+        return [...filteredTemplates].sort((a, b) =>
+          b.user.localeCompare(a.user)
+        )
+      case 'user-asc':
+        return [...filteredTemplates].sort((a, b) =>
+          a.user.localeCompare(b.user)
+        )
+      case 'date-desc':
+        return [...filteredTemplates].sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        )
+      case 'date-asc':
+        return [...filteredTemplates].sort(
+          (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt)
+        )
+      default:
+        return filteredTemplates
     }
   }
 

@@ -1,22 +1,21 @@
 'use client'
 
-import Modal from 'react-modal'
 import { useState } from 'react'
-import { editTemplate } from '../api'
 import { useRouter } from 'next/navigation'
+import { addTemplate } from '../../api'
+import Modal from 'react-modal'
 import PreviewModal from './PreviewModal'
 import { useSession } from 'next-auth/react'
 
-export default function EditModal({
-  template,
-  editModalVisible,
-  closeEditModal,
+export default function TemplateForm({
   templates,
+  createModalVisible,
+  setCreateModalVisible,
 }) {
   const [formData, setFormData] = useState({
-    name: template.name,
-    subject: template.subject,
-    body: template.body,
+    name: '',
+    subject: '',
+    body: '',
   })
   const [templateNameError, setTemplateNameError] = useState('')
   const [previewModalVisible, setPreviewModalVisible] = useState(false)
@@ -26,84 +25,96 @@ export default function EditModal({
 
   const router = useRouter()
 
+  const { name, subject, body } = formData
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const { name, subject, body } = formData
-
-  const togglePreviewModal = () => {
-    setPreviewModalVisible(!previewModalVisible)
-  }
-
-  const validateTemplateName = () => {
-    if (!name) {
-      setTemplateNameError('Template name is required')
+  const saveTemplate = async (e) => {
+    e.preventDefault()
+    if (!name || !subject || !body) {
       return
-    } else {
-      setTemplateNameError('')
     }
 
-    if (templates.find((t) => t.name === name) && name !== template.name) {
+    if (templates.find((template) => template.name === name.trim())) {
       setTemplateNameError('Template name must be unique')
       return
-    } else {
-      setTemplateNameError('')
     }
-  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    const updatedTemplate = {
-      ...template,
+    const template = {
       name,
       subject,
       body,
     }
 
-    await editTemplate(updatedTemplate, token)
-    closeEditModal()
-    router.refresh()
+    await addTemplate(template, token).then(() => {
+      closeCreateModal()
+      router.refresh()
+    })
+  }
+
+  const validateTemplateName = () => {
+    if (name.length < 3) {
+      setTemplateNameError('Template name must be at least 3 characters long')
+      return
+    } else {
+      setTemplateNameError('')
+    }
+  }
+
+  const togglePreviewModal = () => {
+    setPreviewModalVisible(!previewModalVisible)
+    setCreateModalVisible(!createModalVisible)
+  }
+
+  function closeCreateModal() {
+    setFormData({ name: '', subject: '', body: '' })
+    setTemplateNameError('')
+    setCreateModalVisible(false)
   }
 
   const customStyles = {
     overlay: { zIndex: 1000, backgroundColor: 'rgba(0, 0, 0, 0.75)' },
+    content: {
+      overflow: 'hidden',
+    },
   }
 
   return (
     <>
       <Modal
-        isOpen={editModalVisible}
-        onRequestClose={closeEditModal}
+        isOpen={createModalVisible}
+        onRequestClose={closeCreateModal}
+        contentLabel='Create Modal'
         ariaHideApp={false}
         style={customStyles}
-        className='app-modal-wrapper app-modal-wrapper--dialog edit-modal'
       >
-        <div className='app-modal-content'>
+        <div className='app-modal-content app-modal'>
           <div className='app-modal-content__header'>
             <h1 className='app-modal-content__header__title'>
-              Edit Email Template
+              Create a New Email Template
             </h1>
-            <div
+            <a
+              onClick={closeCreateModal}
               className='app-modal-content__header__close'
-              onClick={closeEditModal}
             >
               X
-            </div>
+            </a>
           </div>
+
           <div className='app-modal-content__body'>
             <form
               className='app-modal-content__body__form'
-              onSubmit={handleSubmit}
+              onSubmit={saveTemplate}
             >
               <div className='app-modal-content__body__item'>
                 <label htmlFor='template-name'>Name</label>
                 <input
-                  id='template-name'
                   type='text'
                   value={name}
                   name='name'
+                  id='template-name'
                   required
                   className={templateNameError ? 'error' : ''}
                   onBlur={validateTemplateName}
@@ -118,10 +129,10 @@ export default function EditModal({
               <div className='app-modal-content__body__item'>
                 <label htmlFor='template-subject'>Subject Line</label>
                 <input
-                  id='template-subject'
                   type='text'
                   value={subject}
                   name='subject'
+                  id='template-subject'
                   required
                   onChange={onChange}
                 />
@@ -129,9 +140,9 @@ export default function EditModal({
               <div className='app-modal-content__body__item'>
                 <label htmlFor='template-body'>Message</label>
                 <textarea
-                  id='template-body'
                   value={body}
                   name='body'
+                  id='template-body'
                   required
                   onChange={onChange}
                 />
@@ -140,12 +151,10 @@ export default function EditModal({
                 <button
                   type='submit'
                   className={`app-modal-content__body__buttons__button ${
-                    templateNameError || !name || !subject || !body
-                      ? 'disabled'
-                      : ''
+                    (!name || !subject || !body) && 'disabled'
                   }`}
                 >
-                  Save Changes
+                  Create New Email Template
                 </button>
                 <a
                   className='app-modal-content__body__buttons__preview-link'
@@ -159,7 +168,7 @@ export default function EditModal({
         </div>
       </Modal>
       <PreviewModal
-        template={template}
+        template={formData}
         previewModalVisible={previewModalVisible}
         closePreviewModal={togglePreviewModal}
       />
