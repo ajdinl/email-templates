@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { deleteTemplate } from '../../api'
+import { deleteTemplate } from '@/api/'
 import Link from 'next/link'
 import { Menu, MenuItem } from '@szhsin/react-menu'
 import Moment from 'react-moment'
