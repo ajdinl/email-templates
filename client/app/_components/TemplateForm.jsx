@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { addTemplate } from '../../api'
+import { addTemplate } from '@/api/'
 import Modal from 'react-modal'
 import PreviewModal from './PreviewModal'
 import { useSession } from 'next-auth/react'
