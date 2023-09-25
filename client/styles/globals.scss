@@ -594,6 +594,7 @@ $warning-color: #ff0000;
         color: $preview-link-color;
         font-size: 16px;
         margin-top: 20px;
+        cursor: pointer;
       }
 
       &__warning-button {
@@ -622,14 +623,15 @@ $warning-color: #ff0000;
   margin: 0 auto;
   margin-top: 100px;
   text-align: center;
-  max-width: 250px;
+  width: 250px;
   padding: 20px;
   border: 1px solid $login-app-border-color;
   border-radius: 5px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 
   &__title {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-top: 10px;
   }
 
   &__form-group {
@@ -654,6 +656,10 @@ $warning-color: #ff0000;
         border-color: $login-border-color-focus;
       }
     }
+
+    &__show-password {
+      margin-top: 5px;
+    }
   }
 
   &__btn {
@@ -666,6 +672,7 @@ $warning-color: #ff0000;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 
     &__github {
       background-color: black;
@@ -692,6 +699,7 @@ $warning-color: #ff0000;
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 
     &:hover {
       background-color: $create-user-button-hover-color;
@@ -701,7 +709,7 @@ $warning-color: #ff0000;
   &__error {
     color: $warning-color;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 }
 
