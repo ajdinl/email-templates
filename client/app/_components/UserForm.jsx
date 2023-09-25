@@ -24,13 +24,25 @@ export default function UserForm() {
   const createUser = async (e) => {
     e.preventDefault()
 
+    if (!isValidEmail(email)) {
+      setErrorMessage('Invalid email address')
+      return
+    }
+
     try {
       await registerUser({ name, email, password })
     } catch (error) {
-      setErrorMessage('An error occurred')
+      if (error.message) {
+        setErrorMessage('An error occurred')
+      }
     } finally {
       router.push('/login')
     }
+  }
+
+  function isValidEmail(email) {
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+    return emailRegex.test(email)
   }
 
   const togglePassowrdVisibility = () => {
@@ -81,7 +93,7 @@ export default function UserForm() {
             minLength='3'
             onChange={onChange}
           />
-          <div>
+          <div className='app-login__form-group__show-password'>
             {showPassword ? 'Hide Password' : 'Show Password'}
             <input type='checkbox' onClick={togglePassowrdVisibility} />
           </div>

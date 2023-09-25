@@ -150,9 +150,7 @@ export default function TemplateForm({
               <div className='app-modal-content__body__buttons'>
                 <button
                   type='submit'
-                  className={`app-modal-content__body__buttons__button ${
-                    (!name || !subject || !body) && 'disabled'
-                  }`}
+                  className='app-modal-content__body__buttons__button'
                 >
                   Create New Email Template
                 </button>

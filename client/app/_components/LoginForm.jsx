@@ -73,7 +73,7 @@ export default function LoginForm() {
               minLength='3'
               onChange={onChange}
             />
-            <div>
+            <div className='app-login__form-group__show-password'>
               {showPassword ? 'Hide Password' : 'Show Password'}
               <input type='checkbox' onClick={togglePasswordVisibility} />
             </div>

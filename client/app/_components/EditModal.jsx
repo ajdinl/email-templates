@@ -37,18 +37,18 @@ export default function EditModal({
   }
 
   const validateTemplateName = () => {
-    if (!name) {
-      setTemplateNameError('Template name is required')
-      return
-    } else {
-      setTemplateNameError('')
-    }
-
-    if (templates.find((t) => t.name === name) && name !== template.name) {
-      setTemplateNameError('Template name must be unique')
-      return
-    } else {
-      setTemplateNameError('')
+    switch (true) {
+      case !name:
+        setTemplateNameError('Template name is required')
+        return
+      case name.length < 3:
+        setTemplateNameError('Template name must be at least 3 characters long')
+        return
+      case templates.find((t) => t.name === name) && name !== template.name:
+        setTemplateNameError('Template name must be unique')
+        return
+      default:
+        setTemplateNameError('')
     }
   }
 
@@ -62,9 +62,11 @@ export default function EditModal({
       body,
     }
 
-    await editTemplate(updatedTemplate, token)
-    closeEditModal()
-    router.refresh()
+    if (!templateNameError) {
+      await editTemplate(updatedTemplate, token)
+      closeEditModal()
+      router.refresh()
+    }
   }
 
   const customStyles = {
@@ -139,11 +141,7 @@ export default function EditModal({
               <div className='app-modal-content__body__buttons'>
                 <button
                   type='submit'
-                  className={`app-modal-content__body__buttons__button ${
-                    templateNameError || !name || !subject || !body
-                      ? 'disabled'
-                      : ''
-                  }`}
+                  className='app-modal-content__body__buttons__button'
                 >
                   Save Changes
                 </button>
