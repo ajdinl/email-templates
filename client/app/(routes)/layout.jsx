@@ -1,4 +1,4 @@
-import '@/styles/globals.scss'
+import '@styles/globals.scss'
 import { Roboto } from 'next/font/google'
 import Provider from '../context/Provider'
 
