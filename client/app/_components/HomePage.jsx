@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
 import { deleteTemplate } from '@/api/'
 import Link from 'next/link'
@@ -24,15 +24,55 @@ import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
 import { signOut, useSession } from 'next-auth/react'
 
 export default function HomePage({ templates }) {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [filteredTemplates, setFilteredTemplates] = useState(templates)
-  const [currentSortType, setCurrentSortType] = useState(null)
-  const [selectedTemplate, setSelectedTemplate] = useState(null)
-  const [userFirstLetter, setUserFirstLetter] = useState('')
-  const [createModalVisible, setCreateModalVisible] = useState(false)
-  const [editModalVisible, setEditModalVisible] = useState(false)
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false)
-  const [previewModalVisible, setPreviewModalVisible] = useState(false)
+  const initialState = {
+    searchQuery: '',
+    filteredTemplates: templates,
+    currentSortType: null,
+    selectedTemplate: null,
+    userFirstLetter: '',
+    createModalVisible: false,
+    editModalVisible: false,
+    deleteModalVisible: false,
+    previewModalVisible: false,
+  }
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'SET_SEARCH_QUERY':
+        return { ...state, searchQuery: action.payload }
+      case 'SET_FILTERED_TEMPLATES':
+        return { ...state, filteredTemplates: action.payload }
+      case 'SET_CURRENT_SORT_TYPE':
+        return { ...state, currentSortType: action.payload }
+      case 'SET_SELECTED_TEMPLATE':
+        return { ...state, selectedTemplate: action.payload }
+      case 'SET_USER_FIRST_LETTER':
+        return { ...state, userFirstLetter: action.payload }
+      case 'SET_CREATE_MODAL_VISIBLE':
+        return { ...state, createModalVisible: action.payload }
+      case 'SET_EDIT_MODAL_VISIBLE':
+        return { ...state, editModalVisible: action.payload }
+      case 'SET_DELETE_MODAL_VISIBLE':
+        return { ...state, deleteModalVisible: action.payload }
+      case 'SET_PREVIEW_MODAL_VISIBLE':
+        return { ...state, previewModalVisible: action.payload }
+      default:
+        return state
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const {
+    searchQuery,
+    filteredTemplates,
+    currentSortType,
+    selectedTemplate,
+    userFirstLetter,
+    createModalVisible,
+    editModalVisible,
+    deleteModalVisible,
+    previewModalVisible,
+  } = state
 
   const { data: session } = useSession()
   const userName = session?.user?.name
@@ -40,26 +80,42 @@ export default function HomePage({ templates }) {
   const token = session?.user?.token
 
   useEffect(() => {
-    const filtered = templates.filter((template) =>
-      template.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    setFilteredTemplates(filtered)
+    if (templates) {
+      const filtered = templates.filter((template) =>
+        template.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      dispatch({
+        type: 'SET_FILTERED_TEMPLATES',
+        payload: filtered,
+      })
+    }
   }, [searchQuery, templates])
 
   useEffect(() => {
-    setFilteredTemplates(sortTemplatesBy(currentSortType))
-  }, [currentSortType])
+    if (filteredTemplates) {
+      dispatch({
+        type: 'SET_FILTERED_TEMPLATES',
+        payload: sortTemplatesBy(currentSortType),
+      })
+    }
+  }, [currentSortType, filteredTemplates])
 
   useEffect(() => {
     if (userName) {
-      setUserFirstLetter(userName[0].toUpperCase())
+      dispatch({
+        type: 'SET_USER_FIRST_LETTER',
+        payload: userName[0].toUpperCase(),
+      })
     }
   }, [userName])
 
   const router = useRouter()
 
   const sortTemplatesBy = (sortType) => {
-    setCurrentSortType(sortType)
+    dispatch({
+      type: 'SET_CURRENT_SORT_TYPE',
+      payload: sortType,
+    })
 
     switch (sortType) {
       case 'name-desc':
@@ -98,37 +154,76 @@ export default function HomePage({ templates }) {
   }
 
   const openPreviewModal = (template) => {
-    setSelectedTemplate(template)
-    setPreviewModalVisible(true)
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: template,
+    })
+    dispatch({
+      type: 'SET_PREVIEW_MODAL_VISIBLE',
+      payload: true,
+    })
   }
 
   const closePreviewModal = () => {
-    setPreviewModalVisible(false)
-    setSelectedTemplate(null)
+    dispatch({
+      type: 'SET_PREVIEW_MODAL_VISIBLE',
+      payload: false,
+    })
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: null,
+    })
   }
 
   const openEditModal = (template) => {
-    setSelectedTemplate(template)
-    setEditModalVisible(true)
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: template,
+    })
+    dispatch({
+      type: 'SET_EDIT_MODAL_VISIBLE',
+      payload: true,
+    })
   }
 
   const closeEditModal = () => {
-    setEditModalVisible(false)
-    setSelectedTemplate(null)
+    dispatch({
+      type: 'SET_EDIT_MODAL_VISIBLE',
+      payload: false,
+    })
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: null,
+    })
   }
 
   function openDeleteModal(templateId) {
-    setSelectedTemplate(templateId)
-    setDeleteModalVisible(true)
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: templateId,
+    })
+    dispatch({
+      type: 'SET_DELETE_MODAL_VISIBLE',
+      payload: true,
+    })
   }
 
   function closeDeleteModal() {
-    setDeleteModalVisible(false)
-    setSelectedTemplate(null)
+    dispatch({
+      type: 'SET_DELETE_MODAL_VISIBLE',
+      payload: false,
+    })
+    dispatch({
+      type: 'SET_SELECTED_TEMPLATE',
+      payload: null,
+    })
   }
 
   function openCreateModal() {
-    setCreateModalVisible(true)
+    dispatch({
+      type: 'SET_CREATE_MODAL_VISIBLE',
+      payload: true,
+    })
   }
 
   return (
@@ -166,7 +261,9 @@ export default function HomePage({ templates }) {
             placeholder="Search by user's name, email, company name or location"
             aria-label='search'
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) =>
+              dispatch({ type: 'SET_SEARCH_QUERY', payload: e.target.value })
+            }
           />
           <BsSearch className='app-header__search__icon'></BsSearch>
           <div className='app-header__user'>
@@ -355,8 +452,8 @@ export default function HomePage({ templates }) {
         {/* createModal */}
         <TemplateForm
           createModalVisible={createModalVisible}
-          setCreateModalVisible={setCreateModalVisible}
           templates={filteredTemplates}
+          dispatch={dispatch}
         />
         {/* {deleteModal */}
         <DeleteModal
