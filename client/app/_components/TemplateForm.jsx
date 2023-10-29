@@ -8,9 +8,9 @@ import PreviewModal from './PreviewModal'
 import { useSession } from 'next-auth/react'
 
 export default function TemplateForm({
-  templates,
   createModalVisible,
-  setCreateModalVisible,
+  templates,
+  dispatch,
 }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -63,15 +63,29 @@ export default function TemplateForm({
     }
   }
 
+  function toggleModal() {
+    dispatch({
+      type: 'SET_CREATE_MODAL_VISIBLE',
+      payload: !createModalVisible,
+    })
+  }
+
   const togglePreviewModal = () => {
     setPreviewModalVisible(!previewModalVisible)
-    setCreateModalVisible(!createModalVisible)
+    toggleModal()
+  }
+
+  const closeModal = () => {
+    dispatch({
+      type: 'SET_CREATE_MODAL_VISIBLE',
+      payload: false,
+    })
   }
 
   function closeCreateModal() {
     setFormData({ name: '', subject: '', body: '' })
     setTemplateNameError('')
-    setCreateModalVisible(false)
+    closeModal()
   }
 
   const customStyles = {
