@@ -1,29 +1,30 @@
 'use client'
 
-import { useEffect, useReducer } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { useRouter } from 'next/navigation'
 import { deleteTemplate } from '@/api/'
-import Link from 'next/link'
-import { Menu, MenuItem } from '@szhsin/react-menu'
-import Moment from 'react-moment'
 import TemplateForm from './TemplateForm'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
 import PreviewModal from './PreviewModal'
+import Header from './Header'
+import SideBar from './SideBar'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import {
-  BsFillSendFill,
-  BsFillPersonFill,
-  BsInbox,
-  BsSearch,
-} from 'react-icons/bs'
-import { RxExit } from 'react-icons/rx'
-import { MdEmail } from 'react-icons/md'
-import { BiUpArrowAlt, BiDownArrowAlt } from 'react-icons/bi'
-import { signOut, useSession } from 'next-auth/react'
+  BiUpArrowAlt,
+  BiDownArrowAlt,
+  signOut,
+  useSession,
+  ImSpinner9,
+  Menu,
+  MenuItem,
+  Moment,
+} from '@app/_components/ExternalComponents'
 
 export default function HomePage({ templates }) {
+  const [loading, setLoading] = useState(true)
+
   const initialState = {
     searchQuery: '',
     filteredTemplates: templates,
@@ -98,7 +99,7 @@ export default function HomePage({ templates }) {
         payload: sortTemplatesBy(currentSortType),
       })
     }
-  }, [currentSortType, filteredTemplates])
+  }, [currentSortType])
 
   useEffect(() => {
     if (userName) {
@@ -106,6 +107,8 @@ export default function HomePage({ templates }) {
         type: 'SET_USER_FIRST_LETTER',
         payload: userName[0].toUpperCase(),
       })
+
+      setLoading(false)
     }
   }, [userName])
 
@@ -229,69 +232,14 @@ export default function HomePage({ templates }) {
   return (
     <>
       <main className='application'>
-        <div className='app-sidebar'>
-          <div className='app-sidebar__upper'>
-            <Link href='/'>
-              <MdEmail className='app-sidebar__upper__logo'></MdEmail>
-            </Link>
-            <ul>
-              <li>
-                <BsFillPersonFill className='app-sidebar__upper__icon1'></BsFillPersonFill>
-              </li>
-              <li>
-                <BsFillSendFill className='app-sidebar__upper__icon2'></BsFillSendFill>
-              </li>
-              <li>
-                <BsInbox className='app-sidebar__upper__icon3'></BsInbox>
-              </li>
-            </ul>
-          </div>
-          <div className='app-sidebar__lower'>
-            <ul>
-              <li>
-                <RxExit className='app-sidebar__upper__icon4'></RxExit>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className='app-header'>
-          <input
-            type='text'
-            className='app-header__search'
-            placeholder="Search by user's name, email, company name or location"
-            aria-label='search'
-            value={searchQuery}
-            onChange={(e) =>
-              dispatch({ type: 'SET_SEARCH_QUERY', payload: e.target.value })
-            }
-          />
-          <BsSearch className='app-header__search__icon'></BsSearch>
-          <div className='app-header__user'>
-            <Menu
-              menuButton={
-                userAvatar ? (
-                  <img
-                    src={userAvatar}
-                    className='app-header__user__avatar'
-                  ></img>
-                ) : (
-                  <div className='app-header__user__avatar__placeholder'>
-                    {userFirstLetter}
-                  </div>
-                )
-              }
-              transition
-              className='app-header__user__user-menu user-menu'
-            >
-              <MenuItem
-                className='app-header__user__user-menu__item'
-                onClick={signOut}
-              >
-                Log out
-              </MenuItem>
-            </Menu>
-          </div>
-        </div>
+        <SideBar />
+        <Header
+          searchQuery={searchQuery}
+          userAvatar={userAvatar}
+          userFirstLetter={userFirstLetter}
+          signOut={signOut}
+          dispatch={dispatch}
+        />
         <div className='application__content'>
           <div className='application__content__header'>
             <h1 className='application__content__header__title'>
@@ -401,7 +349,11 @@ export default function HomePage({ templates }) {
                         </span>
                       </td>
                       <td className='application__content__list__items__cell'>
-                        {userName}
+                        {loading ? (
+                          <ImSpinner9 size={15} color='#4f9bec' />
+                        ) : (
+                          userName
+                        )}
                       </td>
                       <td className='application__content__list__items__cell'>
                         <Moment format='MM/DD/YY @ h:mm a'>{updatedAt}</Moment>
