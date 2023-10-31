@@ -1,7 +1,12 @@
 import Link from 'next/link'
-import { BsFillSendFill, BsFillPersonFill, BsInbox } from 'react-icons/bs'
-import { RxExit } from 'react-icons/rx'
-import { MdEmail } from 'react-icons/md'
+import {
+  BsFillSendFill,
+  BsFillPersonFill,
+  BsInbox,
+  MdEmail,
+  RxExit,
+} from '@app/_components/ExternalComponents'
+
 export default function SideBar() {
   return (
     <div className='app-sidebar'>

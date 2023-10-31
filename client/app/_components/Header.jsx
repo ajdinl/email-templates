@@ -1,6 +1,4 @@
-import { Menu, MenuItem } from '@szhsin/react-menu'
-import { BsSearch } from 'react-icons/bs'
-
+import { BsSearch, Menu, MenuItem } from '@app/_components/ExternalComponents'
 export default function Header({
   searchQuery,
   dispatch,
