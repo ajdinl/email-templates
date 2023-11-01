@@ -1,9 +1,9 @@
-import UserForm from '@components/UserForm'
+import CreateUserForm from '@components/forms/CreateUserForm'
 
 export default function Home() {
   return (
     <>
-      <UserForm />
+      <CreateUserForm />
     </>
   )
 }

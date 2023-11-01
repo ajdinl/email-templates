@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { registerUser } from '@/api/'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-export default function UserForm() {
+export default function CreateUserForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -101,10 +102,13 @@ export default function UserForm() {
         <button
           type='submit'
           role='button'
-          className='app-login__btn-secondary'
+          className='app-login__btn-secondary create-btn'
         >
           Create Account
         </button>
+        <Link href='/login' className='app-login__btn create-btn'>
+          Back to Login
+        </Link>
       </form>
       {errorMessage && <div className='app-login__error'>{errorMessage}</div>}
     </div>

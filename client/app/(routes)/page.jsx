@@ -1,4 +1,4 @@
-import HomePage from '@components/HomePage'
+import Page from '@components/Page'
 import { getAllTemplates } from '@/api/'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@app/api/auth/[...nextauth]/route'
@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <>
-      <HomePage templates={templates} />
+      <Page templates={templates} />
     </>
   )
 }

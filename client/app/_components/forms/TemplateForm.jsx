@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { addTemplate } from '@/api/'
 import Modal from 'react-modal'
-import PreviewModal from './PreviewModal'
+import PreviewModal from '../modals/PreviewModal'
 import { useSession } from 'next-auth/react'
 
 export default function TemplateForm({

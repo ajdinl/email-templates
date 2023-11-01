@@ -2,15 +2,15 @@ import '@testing-library/jest-dom'
 import { fireEvent, render, screen, waitFor, act } from '@testing-library/react'
 import { loginUser, registerUser } from '../api'
 import { useRouter } from 'next/navigation'
-import LoginForm from '../components/LoginForm'
-import UserForm from '../components/UserForm'
+import LoginForm from '@components/forms/LoginForm'
+import CreateUserForm from '@components/forms/CreateUserForm'
 
 jest.mock('../api')
 jest.mock('next/navigation')
 
-describe('UserForm', () => {
+describe('CreateUserForm', () => {
   beforeEach(() => {
-    render(<UserForm />)
+    render(<CreateUserForm />)
   })
 
   it('renders the form with the correct fields', () => {
