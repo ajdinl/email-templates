@@ -1,5 +1,7 @@
+import { memo } from 'react'
 import { BsSearch, Menu, MenuItem } from '@app/_components/ExternalComponents'
-export default function Header({
+
+function Header({
   searchQuery,
   dispatch,
   userAvatar,
@@ -44,3 +46,5 @@ export default function Header({
     </div>
   )
 }
+
+export default memo(Header)
