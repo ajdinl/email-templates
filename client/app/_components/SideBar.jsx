@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import Link from 'next/link'
 import {
   BsFillSendFill,
@@ -7,7 +8,7 @@ import {
   RxExit,
 } from '@app/_components/ExternalComponents'
 
-export default function SideBar() {
+function SideBar() {
   return (
     <div className='app-sidebar'>
       <div className='app-sidebar__upper'>
@@ -36,3 +37,5 @@ export default function SideBar() {
     </div>
   )
 }
+
+export default memo(SideBar)
