@@ -307,6 +307,7 @@ $warning-color: #ff0000;
     &__items {
       &__cell {
         border-bottom: 1px solid $table-cells-border-color;
+        width: 30%;
 
         &.name {
           color: $preview-link-color;
@@ -383,6 +384,9 @@ $warning-color: #ff0000;
           }
         }
       }
+    }
+    &.reduceVisibility {
+      opacity: 0.2;
     }
   }
 }
