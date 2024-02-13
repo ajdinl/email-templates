@@ -9,7 +9,7 @@ This is a REST API for the Email Templates Application. It is built with Node.js
 Clone the repository:
 Open your terminal or command prompt and run the following command to clone the repository:
 
-git@github.com:ajdinl/email-templates.git
+git clone git@github.com:ajdinl/email-templates.git
 
 This will create a local copy of the repository on your machine.
 
